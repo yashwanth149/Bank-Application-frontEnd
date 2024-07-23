@@ -1,0 +1,24 @@
+<h1 class="pg1" mat-dialog-title>{{ data.title }}</h1>
+
+<form [formGroup]="personForm" >
+    <button mat-raised-button  (click)="addPerson()" color="warn">Add</button>
+
+    <div mat-dialog-content formArrayName="dynamicArray">
+        <ng-container *ngFor="let control of personControls.controls; let i = index" [formGroupName]="i">
+            <mat-form-field>
+                <input matInput formControlName="personId" placeholder="PersonId" readonly="true">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput formControlName="personName" placeholder="PersonName">
+            </mat-form-field>
+            <button mat-icon-button color="accent" (click)="removePerson(i)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </ng-container>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-dialog-close mat-raised-button color="accent">Close</button>
+        <button mat-raised-button (click)="returnFormData()">Submit</button>
+    </div>
+</form>

@@ -1,0 +1,14 @@
+<div class="searchComponent">
+    <mat-toolbar >
+        <button mat-flat-button color="accent" (click)="tour()">Guide</button>
+        <input type="text" style="outline: none; padding: 10px;" #val (keyup)="navigateToComponent(val.value)" class="t1" [matAutocomplete]="auto" placeholder="Feature Search">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let component of filteredComponents" (click)="navigateTo(component)">
+                {{component.name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-toolbar>
+</div>
+
+
+

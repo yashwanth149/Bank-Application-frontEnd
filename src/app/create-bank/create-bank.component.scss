@@ -1,0 +1,153 @@
+// body {
+//     margin: 0 auto;
+// }
+// .row {
+//     width: 100%;
+//     max-width: 89.7%;
+//     display: flex;
+//     justify-content: space-between;
+//     margin: 1rem auto;
+//     padding: 2rem 1rem;
+
+//     &>*{
+//         margin: 12px;
+//     }
+
+//     input {
+//         padding: .6rem 2px;
+//         border-radius: 2px;
+//         outline: 1px solid rgba($color: #999, $alpha: 1.0);
+//     }
+// }
+// .test {
+//     // display: flex;
+//     // justify-content: space-between;
+
+//     // height: 89vh;
+//     padding: 1rem;
+// }
+
+// .row2 {
+//     margin: 0 auto;
+//     max-width: 97%;
+//     width: 100%;
+//     display: flex;
+//     justify-content: space-between;
+// }
+
+// .row3 {
+//     width: 100%;
+//     max-width: 20%;
+//     padding: 1rem 0 0 2rem;
+// }
+
+
+.create-form {
+  app-nav-bar {
+    position: fixed;
+  }
+
+  .subdiv {
+    width: 83.1%;
+    margin-left: 16.87%;
+  }
+}
+
+
+
+
+
+
+
+
+
+.form-select {
+  outline: 1px solid rgba($color: #000000, $alpha: .4);
+  width: 12rem;
+  padding: 4px;
+  border-radius: 2px;
+
+}
+
+#searchForm {
+  padding: 16px;
+
+  h2 {
+    margin-bottom: 16px;
+  }
+
+  .row,
+  .row2 {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .row {
+    flex: 1;
+    align-items: flex-start;
+
+    .col-md-6,
+    .col-md-12 {
+      // flex: 0 0 50%;
+      padding: 8px;
+
+      .form-input {
+        width: 100%;
+      }
+    }
+  }
+
+  .row2 {
+    flex: 1;
+    align-items: flex-start;
+    justify-content: flex-end;
+
+    .col-md-12 {
+
+      .s1 {
+        //   width: 100%;
+
+        thead {
+          th {
+            padding: 8px;
+            text-align: left;
+          }
+        }
+
+
+      }
+
+      button {
+        margin-top: 8px;
+        width: fit-content;
+      }
+    }
+  }
+
+  button {
+    margin-top: 16px;
+    width: fit-content;
+  }
+}
+
+.s2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  button {
+    margin-top: 8px;
+  }
+}
+
+
+
+//   .form-input {
+//     outline: 1px solid rgba(0, 0, 0, 0.4) !important;
+//     border: none;
+//     border-radius: 2px;
+//     padding: 8px;
+//     width: 11rem !important;
+
+// }

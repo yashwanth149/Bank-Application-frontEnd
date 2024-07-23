@@ -1,0 +1,37 @@
+
+
+.mat-sidenav-container {
+    height: 100vh;
+    
+}
+
+.mat-sidenav{
+    background-color: #333;
+    outline: 1px solid;
+    width: 230px;
+    display: block;
+    padding: 2rem 0 0 1rem;
+
+    a {
+        box-shadow: 4px 6px 3px rgba($color: #000, $alpha: .8);
+    }
+}
+
+
+.logout {
+    position: relative;
+    top: 70%;
+    right: 6.3rem;
+    display: inline-block;
+}
+
+#icn{
+   border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 90%;
+
+    .icon {
+        font-size: 1rem;
+    }
+}

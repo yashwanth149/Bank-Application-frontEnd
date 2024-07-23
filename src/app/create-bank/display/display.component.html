@@ -1,0 +1,12 @@
+<div  class="row3" *ngIf="branchObj">
+   <div class="loop" *ngFor="let branch of branchObj.lst, let i = index">
+    <li>BranchName: <b>{{ branch.branchName }}</b><span style="outline: 2px solid #e73b7f;padding: 1px 2px 0 3px;cursor: pointer;margin-left: 3px;border-radius: 2px;" (click)="removeBranch(i)">X</span></li>
+    <li>persons: 
+        <ul class="nestedlst" *ngFor = "let person of branch.sublst">
+            <li *ngIf="person" > <b>{{person.personName}}</b>  </li>
+        </ul>
+    </li>
+   </div>
+</div>
+
+

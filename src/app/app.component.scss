@@ -1,0 +1,35 @@
+.dialog{
+    position: absolute;
+    z-index: 9999;
+    background-color: #fff;
+    height: 200px;
+    top: 3%;
+    left: 34%;
+    width: 31%;
+    border-radius: 5px;
+    box-shadow: 0 29px 52px rgba(0,0,0,0.40), 0 25px 16px rgba(0,0,0,0.20);
+}
+
+button.btn.btn-danger {
+    position: absolute;
+    top: 70.6%;
+    right: 24%;
+}
+
+button.btn.btn-success {
+    position: absolute;
+    bottom: 11.5%;
+    right: 5%;
+}   
+
+button.close.pull-right {
+    position: absolute;
+    right: 1%;
+    top: 3%;
+}
+
+h4#dialog-child-name {
+    width: 67%;
+    margin: 3rem 0 0 1rem;
+}
+

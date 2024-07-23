@@ -1,0 +1,32 @@
+<div class="center">
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+        <ng-container class="test" *ngIf="isLogin">
+            <mat-form-field>
+                <input matInput type="text" placeholder="userName" formControlName="userId">
+                <small *ngIf="uId.invalid && (uId.dirty || uId.touched) ">
+                    <div *ngIf="uId.errors?.['required']"></div>
+                    <div *ngIf="uId.errors?.['userId']">userName inValid</div>
+                </small>
+            </mat-form-field><br>
+            <mat-form-field>
+                <input matInput type="password" placeholder="password" formControlName="password">
+                <small *ngIf="pass.invalid && (pass.dirty || pass.touched) ">
+                    <div *ngIf="pass.errors?.['required']"></div>
+                </small>
+            </mat-form-field><br>
+
+            <button mat-raised-button color="accent" [disabled]="loginForm.invalid">login</button>
+            <p>don't have an account signUp <button (click)="onSignup()">signup</button> </p>
+        </ng-container>
+
+        <ng-container class="row2" *ngIf="isSignUp">
+            <input matInput type="text" placeholder="userName" formControlName="userId">
+            <input matInput type="text" placeholder="abc@gmail.com" formControlName="email">
+            <input matInput type="password" placeholder="password" formControlName="pass">
+            <button mat-raised-button color="accent" [disabled]="loginForm.invalid">SignUp</button>
+        </ng-container>
+    </form>
+
+
+
+</div>

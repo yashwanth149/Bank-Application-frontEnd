@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+@import '../node_modules/ngx-guided-tour/scss/guided-tour-base-theme.scss';
+
+
+
+
+.form-input {
+    outline: 1px solid rgba($color: #000000, $alpha: .4);
+    border: none;
+    border-radius: 2px;
+
+}
+
+.display__flex {
+    display: flex;
+}
+
+.row-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 25px;
+
+    .field-container {
+        position: relative;
+        height: 50px;
+
+        .form-control {
+            width: 100%;
+        }
+
+    }
+}

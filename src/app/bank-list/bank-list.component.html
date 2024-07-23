@@ -1,0 +1,82 @@
+<div class="page">
+
+
+  <app-nav-bar></app-nav-bar>
+  <div class="main">
+    <app-mnbar></app-mnbar>
+    <h2 style="letter-spacing: 3px; word-spacing: 3px;font-weight: 400;" id="searchHead">Search through fields</h2>
+    <div class="localSearch" [formGroup]="searchForm">
+      <div class="inputSearch">
+        <input matInput placeholder="Search BId...." formControlName="bid">
+        <input matInput placeholder="Search Bank Name...." formControlName="bname">
+        <input matInput placeholder="Search Mainbranch...." formControlName="mainBranch">
+      </div>
+      <button class="search" type="submit" (click)="searchbtn(searchForm)" mat-raised-button>search</button>
+    </div>
+    <div class="table">
+
+      <div class="head" id="s1">
+        <mat-form-field>
+          <input matInput #key (keyup)="applyFilter(key.value)" placeholder="Global search...">
+        </mat-form-field>
+        <a (click)="createPg()" id="s2" mat-raised-button color="accent">Add</a>
+      </div>
+
+      <div class="overflow">
+        <table mat-table [dataSource]="bankLst" class="mat-elevation-z8">
+
+          <!-- BId Column -->
+          <ng-container matColumnDef="bid">
+            <th mat-header-cell *matHeaderCellDef class="s3">BId</th>
+            <td mat-cell *matCellDef="let b">{{ b.bid }}</td>
+          </ng-container>
+
+          <!-- Bank Name Column -->
+          <ng-container matColumnDef="bname">
+            <th mat-header-cell *matHeaderCellDef class="s4">Bank Name</th>
+            <td mat-cell *matCellDef="let b">{{ b.bname }}</td>
+          </ng-container>
+
+          <!-- Main Branch Column -->
+          <ng-container matColumnDef="mainBranch">
+            <th mat-header-cell *matHeaderCellDef class="s5">Main Branch</th>
+            <td mat-cell *matCellDef="let b">{{ b.mainBranch }}</td>
+          </ng-container>
+
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef class="s6">Email</th>
+            <td mat-cell *matCellDef="let b">{{ b.email }}</td>
+          </ng-container>
+
+          <!-- PhNo Column -->
+          <ng-container matColumnDef="phno">
+            <th mat-header-cell *matHeaderCellDef class="s7">PhNo</th>
+            <td mat-cell *matCellDef="let b">{{ b.phno }}</td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef id="s8">Actions</th>
+            <td mat-cell *matCellDef="let b">
+              <button (click)="edit(b.bid)" mat-icon-button color="primary" aria-label="Edit">
+                <!-- <mat-icon>edit</mat-icon> --><img width="18" height="18" src="assets/edit.png" />
+              </button>
+              <button (click)="delete(b.bid)" mat-icon-button color="primary" aria-label="Delete">
+                <!-- <mat-icon>delete</mat-icon> --><img width="15" height="15" src="assets/del.png" />
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <br>
+      <mat-paginator [length]="25" [pageSize]="5" showFirstLastButtons [pageSizeOptions]="[5, 10, 25]"
+        aria-label="Select page">
+      </mat-paginator>
+
+    </div>
+  </div>
+</div>

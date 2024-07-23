@@ -1,0 +1,100 @@
+<div class="create-form m-3 p-4">
+  <app-nav-bar style="height: 100%;"></app-nav-bar>
+  <div class="subdiv">
+    <app-mnbar></app-mnbar>
+    <div [formGroup]="createForm" id="searchForm" (ngSubmit)="submit()" class="test">
+      <h2>Bank Entry</h2>
+      <div class="">
+        <div class="row-container">
+          <mat-form-field>
+            <input matInput formControlName="bid" type="text" placeholder="BankId" readonly class="form-input">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="bname" type="text" placeholder="BankName">
+            <div *ngIf="createForm.get('bname')?.touched && createForm.get('bname')?.invalid">
+              <div *ngIf="createForm.get('bname')?.hasError('nospaceValid')">No spaces...</div>
+            </div>
+          </mat-form-field>
+        </div>
+        <mat-form-field >
+          <input matInput formControlName="email" type="text" placeholder="Email" class="form-input">
+        </mat-form-field>
+        <div class="row-container">
+          <mat-form-field>
+            <input matInput formControlName="mainBranch" type="text" placeholder="Place" class="form-input">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput formControlName="phno" type="text" placeholder="call" class="form-input">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row2 s2">
+        <div class="col-md-12" formArrayName="lst">
+          <button mat-raised-button color="accent" type="button" (click)="addBranch()">Add Branch</button>
+          <table style="width: 100%;" class="s1">
+            <thead>
+              <tr>
+                <th>Branch Id</th>
+                <th>Branch City</th>
+                <th>Branch Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let lstGroup of branchForm.controls; let i = index">
+                <tr [formGroupName]="i">
+                  <td>
+                    <!-- <mat-form-field> -->
+
+                    <input matInput formControlName="branchId" type="text" placeholder="Branch Id" readonly="true"
+                      class="form-input">
+                    <!-- </mat-form-field> -->
+
+                  </td>
+
+                  <td>
+
+                    <mat-select formControlName="branchCity" #valueselect class="form-select"
+                      (selectionChange)="onValueChange(i, valueselect.value)">
+                      <mat-option disabled selected hidden> _select__ </mat-option>
+                      <mat-option *ngFor="let city of dlst" value={{city.cId}}>{{city.cName}}</mat-option>
+                    </mat-select>
+                  </td>
+                  <td>
+
+                    <mat-select formControlName="branchName" #b (selectionChange)="onBranchValueChange(b.value)"
+                      class="form-select">
+                      <mat-option disabled selected hidden> _select__ </mat-option>
+                      <mat-option *ngFor="let subBranch of lstSelects[i]"
+                        [value]="subBranch.branchN">{{subBranch.branchN}}</mat-option>
+                    </mat-select>
+                  </td>
+
+
+                  <td>
+                    <button mat-raised-button color="accent" type="button" (click)="removeBranch(i)">Remove</button>
+                    <button mat-raised-button type="button" (click)="addPerson(i)">Add</button>
+                  </td>
+
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <!-- <div class="row3" *ngIf="displayObjectData">
+          <app-display [branchObj]="displayObjectData" (removeObject)="removeBranchObj($event)"></app-display>
+        </div> -->
+      </div>
+
+      <button mat-raised-button *ngIf="!isUpdateActive" style="margin: 6px 0 0 12px;" type="submit"
+        (click)="submit()">Submit</button>
+      <button mat-raised-button *ngIf="isUpdateActive" type="button" (click)="update()">Update</button>
+      <button mat-raised-button color="accent" style="margin: 6px 0 0 12px;" type="button"
+        routerLink="/list">Close</button>
+    </div>
+
+  </div>
+
+</div>

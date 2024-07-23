@@ -1,0 +1,75 @@
+app-nav-bar {
+    position: fixed;
+}
+
+
+
+.main{
+    margin-left: 14.4rem;
+    mat-card{
+        width: 78%;
+        margin: 0 auto;
+        margin-top: 5rem;
+        box-shadow: none;
+    }
+
+    
+}
+
+
+  
+.mat-column-slNo {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 7% !important;
+  width: 7% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+
+.mat-column-cityName {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 7% !important;
+    width: 7% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-action {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 7% !important;
+    width: 7% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  
+    word-break: break-word;
+  
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+
+
+  #header{
+    display: flex;
+    justify-content: space-between;
+  }

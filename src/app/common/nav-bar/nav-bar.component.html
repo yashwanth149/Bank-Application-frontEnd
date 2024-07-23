@@ -1,0 +1,17 @@
+<mat-sidenav-container (click)="onAction()" (mousemove)="onAction()" (keypress)="onAction()">
+  <mat-sidenav [opened]="true" mode="side">
+    <button id="icn" (click)="toCreate()"><i class="fa-solid fa-chart-line icon"></i></button><br>
+    <br>
+    <button mat-raised-button class="td" (click)="tolist()">Bank Master</button>
+    <br>
+
+    <br>
+    <button mat-raised-button class="td" (click)="toCity()">City Master</button>
+
+    <div class="logout">
+      <button mat-raised-button color="accent" (click)="logout()">Logout</button>
+    </div>
+
+  </mat-sidenav>
+
+</mat-sidenav-container>

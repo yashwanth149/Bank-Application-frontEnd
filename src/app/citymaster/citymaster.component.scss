@@ -1,0 +1,72 @@
+.nav {
+    position: fixed;
+}
+
+.main {
+    margin-left: 14.39rem;
+   
+}
+
+app-mnbar {
+    position: fixed;
+    width: 83.3%;
+}
+
+.p,
+.c {
+    width: 80%;
+    display: flex;
+    padding: 12px;
+    justify-content: space-around;
+    margin: 1rem auto;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+
+    input {
+        padding: .4rem 0 .4rem 3px;
+        border: none;
+        width: 200px;
+        height: 30px;
+        border-radius: 3px;
+        outline: 1px solid rgba($color: #ddd, $alpha: 1.0);
+    }
+
+}
+
+.p {
+    margin-bottom: 3rem;
+}
+
+
+
+
+thead tr {
+    border-radius: 2px;
+    // margin-bottom: 11px;
+
+    td {
+        font-size: 13px;
+        color: rgba($color: #000, $alpha: .4);
+    }
+}
+
+.submain {
+    padding: 12px;
+
+    .subBtn {
+        text-align: right;
+        width: 83%;
+        margin: 1rem auto;
+    }
+
+    #hd {
+        margin: 19px 96px 32px;
+        margin-top: 6rem;
+        letter-spacing: 3px;
+        font-size: 1.3rem;
+        word-spacing: 2px;
+        color: rgba($color: #000, $alpha: .6);
+
+    }
+}
+
+
