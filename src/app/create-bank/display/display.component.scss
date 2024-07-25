@@ -1,31 +1,53 @@
-.nestedlst {
-    list-style-type: square;
-    padding: 0 0 0 3rem;
-}
+// .nestedlst {
+//     list-style-type: square;
+//     padding: 0 0 0 3rem;
+// }
 
 
 
-/* Assuming this SCSS is in your component's style file, e.g., create-bank.component.scss */
+// /* Assuming this SCSS is in your component's style file, e.g., create-bank.component.scss */
 
-.row3 {
-    padding: .8rem;
-    margin-right: 1rem;
-    margin-bottom: 10px;
-    background-color: rgba($color: #cdc4c4, $alpha: .2);
-    border-radius: 1.4rem;
-    font-size: .7rem;
-    li {
-        margin-bottom: 5px;
-    }
+// .row3 {
+//     padding: .8rem;
+//     margin-right: 1rem;
+//     margin-bottom: 10px;
+//     background-color: rgba($color: #cdc4c4, $alpha: .2);
+//     border-radius: 1.4rem;
+//     font-size: .7rem;
+//     li {
+//         margin-bottom: 5px;
+//     }
 
-    /* Styling the nested unordered list */
-    .nestedlst {
-        list-style-type: square;
-        padding-left: 3rem;
-        /* Add indentation */
-    }
-}
+//     /* Styling the nested unordered list */
+//     .nestedlst {
+//         list-style-type: square;
+//         padding-left: 3rem;
+//         /* Add indentation */
+//     }
+// }
 
-* {
-    letter-spacing: 2px;
-}
+// * {
+//     letter-spacing: 2px;
+// }
+
+/* Add this to your component's CSS file */
+cdk-virtual-scroll-viewport {
+    border: 1px solid #ccc;
+    display: block;
+  }
+  
+  cdk-virtual-scroll-viewport div {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .nestedlst {
+    margin-left: 20px;
+  }
+  

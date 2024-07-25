@@ -6,6 +6,7 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MnbarComponent } from './mnbar/mnbar.component';
 import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -19,9 +20,10 @@ import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
     MaterialModule,
     ReactiveFormsModule,
     GuidedTourModule,
-    CommonModule
+    CommonModule,
+    ScrollingModule,
   ],
-  exports:[NavBarComponent,MaterialModule, ReactiveFormsModule,MnbarComponent],
+  exports:[NavBarComponent,MaterialModule, ReactiveFormsModule,MnbarComponent,ScrollingModule],
   providers: [GuidedTourService],
 
 })

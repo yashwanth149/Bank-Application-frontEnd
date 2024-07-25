@@ -4,17 +4,20 @@
     <button mat-raised-button  (click)="addPerson()" color="warn">Add</button>
 
     <div mat-dialog-content formArrayName="dynamicArray">
-        <ng-container *ngFor="let control of personControls.controls; let i = index" [formGroupName]="i">
-            <mat-form-field>
-                <input matInput formControlName="personId" placeholder="PersonId" readonly="true">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput formControlName="personName" placeholder="PersonName">
-            </mat-form-field>
-            <button mat-icon-button color="accent" (click)="removePerson(i)">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </ng-container>
+        <!-- virtual srolling is used to render the list... -->
+        <cdk-virtual-scroll-viewport itemSize="100" style="height: 200px;">
+            <div *cdkVirtualFor="let control of personControls.controls; let i = index" [formGroupName]="i">
+                <mat-form-field>
+                    <input matInput formControlName="personId" placeholder="PersonId" readonly="true">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput formControlName="personName" placeholder="PersonName">
+                </mat-form-field>
+                <button mat-icon-button color="accent" (click)="removePerson(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </cdk-virtual-scroll-viewport>
     </div>
 
     <div mat-dialog-actions>

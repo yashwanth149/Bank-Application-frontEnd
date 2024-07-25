@@ -39,6 +39,7 @@ import { AppComponent } from './app.component';
     SharedModule,
     GuidedTourModule,
     FormsModule,
+
   ],
 
   providers: [

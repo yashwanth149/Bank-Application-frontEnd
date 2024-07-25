@@ -14,15 +14,19 @@ import { IdleService } from '../idle.service';
 export class CitySearchComponent implements OnInit {
 
   cityLst: MatTableDataSource<any>;;
-
-
+  testList:Number[] = [];
+  test2List:any[] = [];
   constructor(
     private bankserv: BankService,
     private rout:Router,
     private guideServ:GuidedTourService,
     private idleServ:IdleService,
     private eleRef:ElementRef,
-  ) { }
+  ) {
+    for (let i = 0; i < 10000; i++) {
+      this.testList.push(i);
+    }
+   }
 
   @ViewChild(MatPaginator) pagnat !: MatPaginator;
   displayedColumns: string[] = ['slNo', 'cityName', 'action'];
@@ -38,9 +42,9 @@ export class CitySearchComponent implements OnInit {
 
   getCitylst() {
     this.bankserv.cityData().subscribe(data => {
+      this.test2List = data;
       this.cityLst = new MatTableDataSource(data);
       this.cityLst.paginator = this.pagnat;
-      console.log(data);
 
     })
   }

@@ -127,7 +127,7 @@ export class CreateBankComponent implements OnInit {
     this.displayObjectData = this.branchForm.at(branchIndex).value;
 
     const dialogBox = this.dialog.open(PersonComponent, {
-      width: '34%',
+      width: '36%',
       data: {
         title: 'New Person Account',
         branchlstTest: this.getpersonForm(branchIndex).value,
