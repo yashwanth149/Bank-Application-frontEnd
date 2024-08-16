@@ -7,6 +7,7 @@ import { BranchCity } from '../models/branchcity.model';
 import { Branch } from '../models/branch.model';
 import { User } from '../models/user';
 import { SearchData } from '../models/banksearch';
+import { Person } from '../models/person.model';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,10 @@ export class BankService {
 
   public removeCity(id: any): Observable<void> {
     return this.http.delete<void>(`${this.apiServerUrl}/bank/deleteCity/${id}`);
+  }
+
+  public getAllPersons(start:number,end:number): Observable<Person[]> {
+    return this.http.get<Person[]>(`${this.apiServerUrl}/bank/getAllPersons?start=${start}&end=${end}`);
   }
 
 }

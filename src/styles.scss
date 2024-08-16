@@ -37,3 +37,30 @@ body {
 
     }
 }
+.mainDiv {
+    display: flex;
+}
+
+.img {
+    margin: 5rem 0 0 1rem;
+    display: flex;
+    justify-content: space-around;
+    width: 97%;
+    height: fit-content;
+
+    img {
+        max-width: 500px;
+        border-radius: 3px;
+    }
+}
+
+.subdiv {
+    max-width: 100%;
+    width: 100%;
+}
+
+
+
+
+
+

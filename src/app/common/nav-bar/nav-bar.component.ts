@@ -50,6 +50,10 @@ export class NavBarComponent implements OnInit,OnDestroy {
     this.route.navigate(['city-search'])
   }
 
+  toCdkVirtualComponent(){
+    this.route.navigate(['/R&D'])
+  }
+
   onAction(){
     // this.idleServ.resetTImer();
   }

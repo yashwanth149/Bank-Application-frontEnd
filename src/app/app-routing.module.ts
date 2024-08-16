@@ -7,6 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CitymasterComponent } from './citymaster/citymaster.component';
 import { CitySearchComponent } from './city-search/city-search.component';
+import { CdkVirtualScrollComponent } from './cdk-virtual-scroll/cdk-virtual-scroll.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'dash', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'city', component: CitymasterComponent, canActivate: [AuthGuard] },
   { path: 'city-search', component: CitySearchComponent, canActivate: [AuthGuard] },
-  { path: 'city-search/:id', component: CitymasterComponent, canActivate: [AuthGuard] }
+  { path: 'city-search/:id', component: CitymasterComponent, canActivate: [AuthGuard] },
+  { path: 'R&D', component: CdkVirtualScrollComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

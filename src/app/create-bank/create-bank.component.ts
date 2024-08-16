@@ -22,17 +22,19 @@ export class CreateBankComponent implements OnInit {
   selectedCityValues: any[] = [];
   isGuide: any;
 
-
-
-
-  constructor(private fb: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute, private bankService: BankService, private dialog: MatDialog, private guideServ: GuidedTourService) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private bankService: BankService,
+    private dialog: MatDialog,
+    private guideServ: GuidedTourService
+  ) { }
 
   public createForm!: FormGroup;
 
   ngOnInit(): void {
     this.cityDropLst();
-
-    
 
     this.createForm = this.fb.group({
       bid: [''],
@@ -42,9 +44,7 @@ export class CreateBankComponent implements OnInit {
       phno: ['', Validators.required],
       lst: this.fb.array([
       ]),
-
     });
-
 
     this.activatedRoute.queryParams.subscribe(parms => {
       this.isGuide = parms['mode'];
@@ -82,7 +82,7 @@ export class CreateBankComponent implements OnInit {
     if (!this.bankUpdateId) {
       this.addBranch();
     }
-    
+
 
   }
   addPersonRow(): any {
@@ -116,8 +116,6 @@ export class CreateBankComponent implements OnInit {
     this.branchForm.push(branch);
   }
 
-
-
   getpersonForm(index: number) {
     return this.branchForm.at(index).get('sublst') as FormArray;
   }
@@ -131,7 +129,7 @@ export class CreateBankComponent implements OnInit {
       data: {
         title: 'New Person Account',
         branchlstTest: this.getpersonForm(branchIndex).value,
-        mode:this.isGuide
+        mode: this.isGuide
       },
       disableClose: true
     });
@@ -149,9 +147,6 @@ export class CreateBankComponent implements OnInit {
         });
       }
       this.displayObjectData = this.createForm.value;
-
-
-
     });
 
   }
@@ -179,7 +174,6 @@ export class CreateBankComponent implements OnInit {
     else {
       this.branchForm.reset();
     }
-
   }
 
 
@@ -191,18 +185,11 @@ export class CreateBankComponent implements OnInit {
           this.router.navigate(['/list']);
         });
     }
-    console.log(this.createForm.value);
-
   }
 
   update() {
-
     this.submit();
-
   }
-
-
-
 
   cityDropLst() {
     this.bankService.cityData().subscribe((datalst: BranchCity[]) => {
@@ -213,36 +200,30 @@ export class CreateBankComponent implements OnInit {
     this.bankService.cityById(Number(item)).subscribe((response: BranchCity) => {
       this.lstSelects[index] = response.clst;
       this.displayObjectData = this.createForm.value;
-
-
     });
-
-
-
   }
 
   onBranchValueChange(val: any) {
     this.displayObjectData = this.createForm.value;
   }
 
-
-  tour() {    
+  tour() {
     this.guideServ.startTour({
       tourId: 'tour',
       useOrb: true,
 
       steps: [
         {
-          title:'Main bank entry',
+          title: 'Main bank entry',
           selector: '.s1',
-          content:'Main Bank details',
+          content: 'Main Bank details',
           orientation: Orientation.Bottom
 
         },
         {
-          title:'test',
-          selector:'.s2',
-          content:'Testing',
+          title: 'test',
+          selector: '.s2',
+          content: 'Testing',
           orientation: Orientation.Bottom
 
         }

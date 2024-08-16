@@ -1,0 +1,14 @@
+<div class="mainDiv">
+    <app-nav-bar></app-nav-bar>
+
+    <div class="subdiv">
+        <app-mnbar></app-mnbar>
+        <mat-card style="width: 30%;">
+            <cdk-virtual-scroll-viewport itemSize="30" style="height: 150px;">
+                <mat-list-item *cdkVirtualFor="let data of dataList; let i = index">
+                    <li>{{data.personId}}</li>
+                </mat-list-item>
+            </cdk-virtual-scroll-viewport>
+        </mat-card>
+    </div>
+</div>

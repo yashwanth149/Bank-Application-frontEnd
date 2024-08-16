@@ -16,6 +16,7 @@ import { CitySearchComponent } from './city-search/city-search.component';
 import { FormsModule } from '@angular/forms';
 import { IdleService } from './idle.service';
 import { AppComponent } from './app.component';
+import { CdkVirtualScrollComponent } from './cdk-virtual-scroll/cdk-virtual-scroll.component';
 
 
 
@@ -28,7 +29,8 @@ import { AppComponent } from './app.component';
     LoginPageComponent,
     DashboardComponent,
     CitymasterComponent,
-    CitySearchComponent
+    CitySearchComponent,
+    CdkVirtualScrollComponent
 
   ],
   imports: [

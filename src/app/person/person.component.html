@@ -4,8 +4,8 @@
     <button mat-raised-button  (click)="addPerson()" color="warn">Add</button>
 
     <div mat-dialog-content formArrayName="dynamicArray">
-        <!-- virtual srolling is used to render the list... -->
-        <cdk-virtual-scroll-viewport itemSize="85" style="height: 200px;">
+        <!-- virtual srolling is used to render the lst... -->
+        <cdk-virtual-scroll-viewport itemSize="40" style="height: 200px;">
             <div *cdkVirtualFor="let control of personControls.controls; let i = index" [formGroupName]="i">
                 <mat-form-field>
                     <input matInput formControlName="personId" placeholder="PersonId" readonly="true">
