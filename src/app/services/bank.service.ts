@@ -76,4 +76,9 @@ export class BankService {
     return this.http.get<Person[]>(`${this.apiServerUrl}/bank/getAllPersons?start=${start}&end=${end}`);
   }
 
+
+  public commonDropdown(dataObj:any): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiServerUrl}/bank/common-search`,dataObj);
+  }
+
 }

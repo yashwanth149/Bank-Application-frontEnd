@@ -2,7 +2,7 @@
 
 import { Component, OnInit, OnDestroy, DoCheck, OnChanges, SimpleChanges } from '@angular/core';
 import { IdleService } from './idle.service';
-import { Subscription, distinctUntilChanged, filter, fromEvent } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -36,17 +36,17 @@ export class AppComponent implements OnInit, OnDestroy {
     //       this.startIdleWatching();
     //   }
     // });
-    const keyDowns = fromEvent(document, 'keydown').pipe(
-      filter((e: any) => e.keyCode === 27),
-      distinctUntilChanged()
-    );
-    this.subscription = keyDowns.subscribe(escpress => {
-      if (escpress.type === 'keydown') {
-        this.idleServ.isCheckGuide.next(false);
-        console.log('ESC');
+    // const keyDowns = fromEvent(document, 'keydown').pipe(
+    //   filter((e: any) => e.keyCode === 27),
+    //   distinctUntilChanged()
+    // );
+    // this.subscription = keyDowns.subscribe(escpress => {
+    //   if (escpress.type === 'keydown') {
+    //     this.idleServ.isCheckGuide.next(false);
+    //     console.log('ESC');
 
-      }
-    });
+    //   }
+    // });
   }
 
 

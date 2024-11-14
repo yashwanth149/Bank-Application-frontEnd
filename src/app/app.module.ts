@@ -17,6 +17,9 @@ import { FormsModule } from '@angular/forms';
 import { IdleService } from './idle.service';
 import { AppComponent } from './app.component';
 import { CdkVirtualScrollComponent } from './cdk-virtual-scroll/cdk-virtual-scroll.component';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
+import { MnbarComponent } from './mnbar/mnbar.component';
+
 
 
 
@@ -30,7 +33,9 @@ import { CdkVirtualScrollComponent } from './cdk-virtual-scroll/cdk-virtual-scro
     DashboardComponent,
     CitymasterComponent,
     CitySearchComponent,
-    CdkVirtualScrollComponent
+    CdkVirtualScrollComponent,
+    MnbarComponent,
+
 
   ],
   imports: [
@@ -40,8 +45,8 @@ import { CdkVirtualScrollComponent } from './cdk-virtual-scroll/cdk-virtual-scro
     BrowserAnimationsModule,
     SharedModule,
     GuidedTourModule,
-    FormsModule,
-
+    PDFExportModule,
+    
   ],
 
   providers: [

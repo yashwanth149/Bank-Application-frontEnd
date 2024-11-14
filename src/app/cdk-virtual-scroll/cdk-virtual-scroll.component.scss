@@ -11,3 +11,20 @@ cdk-virtual-scroll-viewport{
         height: 40px;
     }
 }
+
+.custom-dropdown {
+    position: absolute; /* Position it below the input */
+    background-color: white; /* Background color */
+    border: 1px solid #ccc; /* Border */
+    border-radius: 4px; /* Rounded corners */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+.dropdown-item {
+    padding: 10px; /* Control the height of each item */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0; /* Highlight on hover */
+}
