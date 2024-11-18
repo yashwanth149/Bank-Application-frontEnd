@@ -11,12 +11,15 @@
             </cdk-virtual-scroll-viewport>
         </mat-card> -->
         <div class="form-group">
-            <input type="text" placeholder="Pick one" aria-label="Number" class="form-input form-control"  [matAutocomplete]="auto">
+            <input type="text" placeholder="Pick one" aria-label="Number" class="form-input form-control"
+                [matAutocomplete]="auto" #val (keyup)="onKey(val.value)">
             <mat-autocomplete #auto="matAutocomplete">
-                <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="35" style="height: 150px;"
-                    minBufferPx="50" maxBufferPx="100">
-                    <mat-option *cdkVirtualFor="let option of cdkLst" [value]="option.personId" class="autocomplete-item">
-                        {{option.personId}}
+                <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30"
+                    [style.min-height]="getHeight()" [style.max-height]="getHeight()" minBufferPx="100"
+                    maxBufferPx="100">
+                    <mat-option *cdkVirtualFor="let option of cdkLst" [value]="option.personName"
+                        class="autocomplete-item">
+                        {{option.personName}}
                     </mat-option>
                 </cdk-virtual-scroll-viewport>
             </mat-autocomplete>
