@@ -10,7 +10,7 @@
                 </mat-list-item>
             </cdk-virtual-scroll-viewport>
         </mat-card> -->
-        <div class="form-group">
+        <!-- <div class="form-group">
             <input type="text" placeholder="Pick one" aria-label="Number" class="form-input form-control"
                 [matAutocomplete]="auto" #val (keyup)="onKey(val.value)">
             <mat-autocomplete #auto="matAutocomplete">
@@ -21,6 +21,20 @@
                         class="autocomplete-item">
                         {{option.personName}}
                     </mat-option>
+                </cdk-virtual-scroll-viewport>
+            </mat-autocomplete>
+        </div> -->
+        <div class="form-group">
+            <input type="text" placeholder="Pick one" aria-label="Number" class="form-input form-control"
+                [matAutocomplete]="auto" #val (keyup)="onKey(val.value)">
+            <mat-autocomplete #auto="matAutocomplete">
+                <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30"  style="height: 200px;" minBufferPx="100"
+                    maxBufferPx="100">
+                    <mat-option *cdkVirtualFor="let option of cdkLst" [value]="option.personName"
+                        class="autocomplete-item">
+                        {{option.personName}}
+                    </mat-option>
+                    <mat-option *ngIf="cdkLst.length == 0" [value]=''>No Data Found</mat-option>
                 </cdk-virtual-scroll-viewport>
             </mat-autocomplete>
         </div>

@@ -81,4 +81,8 @@ export class BankService {
     return this.http.post<any[]>(`${this.apiServerUrl}/bank/common-search`,dataObj);
   }
 
+  public onKeySearchDropDown(dataObj:any): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiServerUrl}/bank/on-key-search`,dataObj);
+  }
+
 }
