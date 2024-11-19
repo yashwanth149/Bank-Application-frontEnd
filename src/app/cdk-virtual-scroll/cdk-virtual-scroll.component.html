@@ -28,8 +28,8 @@
             <input type="text" placeholder="Pick one" aria-label="Number" class="form-input form-control"
                 [matAutocomplete]="auto" #val (keyup)="onKey(val.value)">
             <mat-autocomplete #auto="matAutocomplete">
-                <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30"  style="height: 200px;" minBufferPx="100"
-                    maxBufferPx="100">
+                <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30"  style="height: 150px;" minBufferPx="100"
+                    maxBufferPx="200">
                     <mat-option *cdkVirtualFor="let option of cdkLst" [value]="option.personName"
                         class="autocomplete-item">
                         {{option.personName}}

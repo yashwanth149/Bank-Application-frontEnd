@@ -105,8 +105,6 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
       this.bankServ.commonDropdown(this.Common.value).subscribe(data => {
         if (data.length > 0) {
           this.cdkLst = [...this.cdkLst, ...data];
-          this.totals = [...this.totals, ...data];
-          this.Common.get('start')?.setValue(start + count);
           this.isLoading = true;
         } else {
           this.isLoading = false
@@ -147,21 +145,16 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   // }
 
   debounceSearch = this.debounce((event: any) => {
+    this.isLoading = false
     this.cdkLst = [];
     if (event.length>0) {
-      const start = this.Common.get('start')?.value || 0;
-      const count = this.Common.get('count')?.value || 0;
       this.Common.get('Params')?.get('personName')?.setValue(event.toLowerCase());
       this.bankServ.onKeySearchDropDown(this.Common.value).subscribe(data => {
         console.log('key upsearch event lst', data);
         if (data.length > 0) {
           this.cdkLst = [...this.cdkLst, ...data];
           this.totals = [...this.totals, ...data];
-          this.Common.get('start')?.setValue(start + count);
-          this.isLoading = true;
-        } else {
-          this.isLoading = false;
-        }
+        } 
       });
     }
     else {
