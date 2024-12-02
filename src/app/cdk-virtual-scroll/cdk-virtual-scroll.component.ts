@@ -3,6 +3,7 @@ import { BankService } from '../services/bank.service';
 import { Subscription } from 'rxjs';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormBuilder } from '@angular/forms';
+
 @Component({
   selector: 'app-cdk-virtual-scroll',
   templateUrl: './cdk-virtual-scroll.component.html',
@@ -19,7 +20,6 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   isRedered: boolean = false;
   showDropdown: boolean = false; // Initialize showDropdown
   items: any[] = []; // Initialize showDropdown
-  selectedItem: any;
   testLst: any[] = [];
 
   constructor(
@@ -31,6 +31,10 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
   ngOnInit(): void {
     // this.firstHitApi();
+    this.items = [];
+    for (let i = 0; i < 10000; i++) {
+        this.items.push({ label: i, value:  i });
+    }
     this.dropDowns();
   }
 
@@ -80,7 +84,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   Common = this.fb.group({
     Params: this.fb.group({
       personName: [''],
-      // personId: [''],
+      personId: [''],
     }),
     start: [0],
     count: [10],
@@ -90,6 +94,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     if (this.viewport) {
       this.scrollable = this.viewport.scrolledIndexChange.subscribe(index => {
+        console.log('index',index);
         if (index >= this.cdkLst.length - 8 && this.isLoading) {
           this.dropDowns();
         }
@@ -103,6 +108,8 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
     const count = this.Common.get('count')?.value || 0;
     try {
       this.bankServ.commonDropdown(this.Common.value).subscribe(data => {
+        console.log(data);
+        this.Common.get('start')?.patchValue(start + count);
         if (data.length > 0) {
           this.cdkLst = [...this.cdkLst, ...data];
           this.isLoading = true;
@@ -197,5 +204,26 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
 
   //   return `${calculatedHeight}px`;
   // }
+
+  selectedItem: any;
+
+  filteredItems: any[] ;
+
+
+  filterItems(event: any) {
+      //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+      let filtered: any[] = [];
+      let query = event.query;
+
+      for (let i = 0; i < (this.items as any[]).length; i++) {
+          let item = (this.items as any[])[i];
+          if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+              filtered.push(item);
+          }
+      }
+
+      this.filteredItems = filtered;
+  }
+
 
 }

@@ -24,7 +24,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ScrollingModule,
     AutoCompleteModule,
     FormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    AutoCompleteModule
   ],
   exports:[NavBarComponent,
     MaterialModule,

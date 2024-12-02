@@ -13,7 +13,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
 import { CitymasterComponent } from './citymaster/citymaster.component';
 import { CitySearchComponent } from './city-search/city-search.component';
-import { FormsModule } from '@angular/forms';
 import { IdleService } from './idle.service';
 import { AppComponent } from './app.component';
 import { CdkVirtualScrollComponent } from './cdk-virtual-scroll/cdk-virtual-scroll.component';

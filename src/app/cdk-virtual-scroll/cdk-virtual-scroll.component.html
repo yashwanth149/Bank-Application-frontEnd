@@ -28,8 +28,8 @@
             <input type="text" placeholder="Pick one" aria-label="Number" class="form-input form-control"
                 [matAutocomplete]="auto" #val (keyup)="onKey(val.value)">
             <mat-autocomplete #auto="matAutocomplete">
-                <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30"  style="height: 150px;" minBufferPx="100"
-                    maxBufferPx="200">
+                <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30" style="height: 200px;"
+                    minBufferPx="100" maxBufferPx="200">
                     <mat-option *cdkVirtualFor="let option of cdkLst" [value]="option.personName"
                         class="autocomplete-item">
                         {{option.personName}}
@@ -37,6 +37,16 @@
                     <mat-option *ngIf="cdkLst.length == 0" [value]=''>No Data Found</mat-option>
                 </cdk-virtual-scroll-viewport>
             </mat-autocomplete>
+        </div>
+        <div class="card flex justify-content-center">
+            <p-autoComplete
+                [(ngModel)]="selectedItem"
+                [virtualScroll]="true"
+                [suggestions]="filteredItems"
+                [virtualScrollItemSize]="34"
+                (completeMethod)="filterItems($event)"
+                optionLabel="label"
+                [dropdown]="true" ></p-autoComplete>
         </div>
     </div>
 </div>
