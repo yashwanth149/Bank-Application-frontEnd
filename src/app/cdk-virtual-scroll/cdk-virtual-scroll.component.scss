@@ -28,3 +28,12 @@ cdk-virtual-scroll-viewport{
 .dropdown-item:hover {
     background-color: #f0f0f0; /* Highlight on hover */
 }
+
+.mat-optgroup .mat-option:not(.mat-option-multiple) {
+    padding-left: 20px;
+    margin-top: -14px;
+    margin-bottom: -3px;
+}
+
+
+

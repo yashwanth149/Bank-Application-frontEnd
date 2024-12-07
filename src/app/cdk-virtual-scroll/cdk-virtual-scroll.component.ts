@@ -1,8 +1,20 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { BankService } from '../services/bank.service';
-import { Subscription } from 'rxjs';
+import { map, Observable, startWith, Subscription } from 'rxjs';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
+
+export interface StateGroup {
+  letter: string;
+  names: string[];
+}
+
+export const _filter = (opt: string[], value: string): string[] => {
+  const filterValue = value.toLowerCase();
+
+  return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+};
 
 @Component({
   selector: 'app-cdk-virtual-scroll',
@@ -27,13 +39,41 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
     private fb: FormBuilder
 
   ) { }
-
+  private options: string[] = [];
+  public control = new FormControl();
+  public filteredOptions: string[];
+  public height: string;
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
   ngOnInit(): void {
+
     // this.firstHitApi();
+    // this.options = Array.from({ length: 30 })
+    //   .map((_, i) => Math.random().toString(36).substring(7))
+    //   .sort();
+
+    // // Listen for changes to the input
+    // this.control.valueChanges
+    //   .pipe(
+    //     startWith(''),
+    //     map((value) => {
+    //       // Filter the options
+    //       this.filteredOptions = this.options.filter((option) =>
+    //         option.toLowerCase().startsWith(value.toLowerCase())
+    //       );
+    //       console.log(this.filteredOptions);
+
+    //       // Recompute how big the viewport should be.
+    //       if (this.filteredOptions.length < 4) {
+    //         this.height = this.filteredOptions.length * 50 + 'px';
+    //       } else {
+    //         this.height = '200px';
+    //       }
+    //     })
+    //   )
+    //   .subscribe();
     this.items = [];
     for (let i = 0; i < 10000; i++) {
-        this.items.push({ label: i, value:  i });
+      this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
     }
     this.dropDowns();
   }
@@ -86,15 +126,18 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
       personName: [''],
       personId: [''],
     }),
+    key: [''],
     start: [0],
     count: [10],
     className: ['DataPersonSearch'],
   })
 
+  get formObj(): FormGroup {
+    return this.Common.get('Params') as FormGroup
+  }
   ngAfterViewInit(): void {
     if (this.viewport) {
       this.scrollable = this.viewport.scrolledIndexChange.subscribe(index => {
-        console.log('index',index);
         if (index >= this.cdkLst.length - 8 && this.isLoading) {
           this.dropDowns();
         }
@@ -112,6 +155,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
         this.Common.get('start')?.patchValue(start + count);
         if (data.length > 0) {
           this.cdkLst = [...this.cdkLst, ...data];
+          this.matchedList = [...this.matchedList, ...data];
           this.isLoading = true;
         } else {
           this.isLoading = false
@@ -121,6 +165,8 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
       console.error('Error fetching dropdown data:', error);
     }
   }
+
+
 
   filteredList: any[] = []
   // onKey(event: any) {
@@ -154,14 +200,13 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   debounceSearch = this.debounce((event: any) => {
     this.isLoading = false
     this.cdkLst = [];
-    if (event.length>0) {
-      this.Common.get('Params')?.get('personName')?.setValue(event.toLowerCase());
+    if (event.length > 0) {
       this.bankServ.onKeySearchDropDown(this.Common.value).subscribe(data => {
         console.log('key upsearch event lst', data);
         if (data.length > 0) {
           this.cdkLst = [...this.cdkLst, ...data];
           this.totals = [...this.totals, ...data];
-        } 
+        }
       });
     }
     else {
@@ -173,7 +218,20 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   onKey(event: any) {
     this.debounceSearch(event)
   }
-  
+
+
+  filteredLst: any[] = []
+  matchedList: any[] = []
+  // onKey(event: any) {
+  //   console.log(event);
+  //    this.filteredLst = this.cdkLst;
+  //   this.matchedList  = this.filteredLst.filter((obj: any) => {
+  //     return Object.values(obj).some((value: any) => {
+  //       return value.toString().toLowerCase().includes(event.toString().toLowerCase());
+  //     });
+  //   });
+  //   console.log(this.matchedList);
+  // }
   /**
    * Creates a debounced function that delays invoking the provided
    * function until after `delay` milliseconds have elapsed since the
@@ -205,25 +263,14 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   //   return `${calculatedHeight}px`;
   // }
 
-  selectedItem: any;
 
-  filteredItems: any[] ;
-
-
-  filterItems(event: any) {
-      //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-      let filtered: any[] = [];
-      let query = event.query;
-
-      for (let i = 0; i < (this.items as any[]).length; i++) {
-          let item = (this.items as any[])[i];
-          if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-              filtered.push(item);
-          }
-      }
-
-      this.filteredItems = filtered;
+  onBlur(event: any) {
+    console.log('selected value', event);
   }
+  isMultiple: boolean = false
 
-
+  // In your component
+  objKeysLength(obj: any) {
+    return Object.keys(obj).length;
+  }
 }

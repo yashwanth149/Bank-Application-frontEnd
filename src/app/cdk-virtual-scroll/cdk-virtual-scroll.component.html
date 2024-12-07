@@ -24,7 +24,30 @@
                 </cdk-virtual-scroll-viewport>
             </mat-autocomplete>
         </div> -->
-        <div class="form-group">
+
+        <!-- <div class="card flex justify-content-center">
+            <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems"
+                [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label"
+                [autofocus]="true">
+            </p-autoComplete>
+        </div>
+
+        <h5>Virtual Scroll (10000 Items)</h5>
+        <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems"
+            [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [autofocus]="true">
+        </p-autoComplete>
+        <br> -->
+        <!-- <input type="text" placeholder="Pick one" [formControl]="control" matInput [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" [ngStyle]="{'height': height}"
+                itemSize="25">
+                <mat-option *cdkVirtualFor="let option of filteredOptions" [value]="option" class="autocomplete-item">
+                    {{option}}
+                </mat-option>
+            </cdk-virtual-scroll-viewport>
+        </mat-autocomplete> -->
+
+        <!-- <div class="form-group">
             <input type="text" placeholder="Pick one" aria-label="Number" class="form-input form-control"
                 [matAutocomplete]="auto" #val (keyup)="onKey(val.value)">
             <mat-autocomplete #auto="matAutocomplete">
@@ -32,21 +55,35 @@
                     minBufferPx="100" maxBufferPx="200">
                     <mat-option *cdkVirtualFor="let option of cdkLst" [value]="option.personName"
                         class="autocomplete-item">
-                        {{option.personName}}
+                        {{option.personId}}
                     </mat-option>
                     <mat-option *ngIf="cdkLst.length == 0" [value]=''>No Data Found</mat-option>
                 </cdk-virtual-scroll-viewport>
             </mat-autocomplete>
-        </div>
-        <div class="card flex justify-content-center">
-            <p-autoComplete
-                [(ngModel)]="selectedItem"
-                [virtualScroll]="true"
-                [suggestions]="filteredItems"
-                [virtualScrollItemSize]="34"
-                (completeMethod)="filterItems($event)"
-                optionLabel="label"
-                [dropdown]="true" ></p-autoComplete>
-        </div>
+
+        </div> -->
+
+        <!-- style="display: flex; justify-content: center;margin-top: 10%;" -->
+        <form [formGroup]="Common" >
+            <div>
+                <input type="text" matInput placeholder="" required [matAutocomplete]="autoGroup" #val
+                    (keyup)="onKey(val.value)" (blur)="onBlur(val.value)" formControlName="key">
+                <mat-autocomplete #autoGroup="matAutocomplete">
+                    <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30"
+                      style="min-height: 320px;" minBufferPx="100" maxBufferPx="200">
+                      <div *cdkVirtualFor="let group of cdkLst" [style.min-height]="cdkLst.length > 0 ? '30px' : '0px'" >
+                        <mat-optgroup [label]="objKeysLength(formObj.value)>1 ? group?.personId :'' ">
+                          <mat-option [value]="group.personName">
+                            {{group.personName}}
+                          </mat-option>
+                        </mat-optgroup>
+                      </div>
+                      <mat-optgroup *ngIf="cdkLst.length == 0" class="test" style="visibility: visible;">
+                        {{'No Data Found'}}
+                      </mat-optgroup>
+                    </cdk-virtual-scroll-viewport>
+                  </mat-autocomplete>
+            </div>
+        </form>
     </div>
 </div>
