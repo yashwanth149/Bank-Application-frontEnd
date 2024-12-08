@@ -64,25 +64,25 @@
         </div> -->
 
         <!-- style="display: flex; justify-content: center;margin-top: 10%;" -->
-        <form [formGroup]="Common" >
+        <form [formGroup]="Common">
             <div>
                 <input type="text" matInput placeholder="" required [matAutocomplete]="autoGroup" #val
                     (keyup)="onKey(val.value)" (blur)="onBlur(val.value)" formControlName="key">
                 <mat-autocomplete #autoGroup="matAutocomplete">
                     <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30"
-                      style="min-height: 320px;" minBufferPx="100" maxBufferPx="200">
-                      <div *cdkVirtualFor="let group of cdkLst" [style.min-height]="cdkLst.length > 0 ? '30px' : '0px'" >
-                        <mat-optgroup [label]="objKeysLength(formObj.value)>1 ? group?.personId :'' ">
-                          <mat-option [value]="group.personName">
-                            {{group.personName}}
-                          </mat-option>
+                        style="min-height: 320px;" minBufferPx="100" maxBufferPx="200">
+                        <div *cdkVirtualFor="let group of cdkLst">
+                            <mat-optgroup [label]="objKeysLength(formObj.value)>1 ? group?.personId :'' ">
+                                <mat-option [value]="group.personName">
+                                    {{group.personName}}
+                                </mat-option>
+                            </mat-optgroup>
+                        </div>
+                        <mat-optgroup *ngIf="cdkLst.length == 0" class="test" style="visibility: visible;">
+                            {{'No Data Found'}}
                         </mat-optgroup>
-                      </div>
-                      <mat-optgroup *ngIf="cdkLst.length == 0" class="test" style="visibility: visible;">
-                        {{'No Data Found'}}
-                      </mat-optgroup>
                     </cdk-virtual-scroll-viewport>
-                  </mat-autocomplete>
+                </mat-autocomplete>
             </div>
         </form>
     </div>

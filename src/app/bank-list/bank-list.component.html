@@ -10,10 +10,14 @@
         <input matInput placeholder="Search BId...." formControlName="bid">
         <input matInput placeholder="Search Bank Name...." formControlName="bname">
         <input matInput placeholder="Search Mainbranch...." formControlName="mainBranch">
+        <button class="search" type="submit" (click)="searchbtn(searchForm)" mat-raised-button>search</button>
+
       </div>
-      <button class="search" type="submit" (click)="searchbtn(searchForm)" mat-raised-button>search</button>
     </div>
+
+
     <div class="table">
+      <!-- <app-cdk-virtual-scroll [Common]="Common"></app-cdk-virtual-scroll> -->
 
       <div class="head" id="s1">
         <mat-form-field>

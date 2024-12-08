@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { BankService } from '../services/bank.service';
 import { map, Observable, startWith, Subscription } from 'rxjs';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
@@ -34,18 +34,19 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   items: any[] = []; // Initialize showDropdown
   testLst: any[] = [];
 
+// @Input() Common:any  = null;
+
   constructor(
     private bankServ: BankService,
     private fb: FormBuilder
 
   ) { }
-  private options: string[] = [];
   public control = new FormControl();
   public filteredOptions: string[];
   public height: string;
   @ViewChild(CdkVirtualScrollViewport) viewport: CdkVirtualScrollViewport;
   ngOnInit(): void {
-
+    // console.log(this.Commons.value);
     // this.firstHitApi();
     // this.options = Array.from({ length: 30 })
     //   .map((_, i) => Math.random().toString(36).substring(7))
@@ -71,10 +72,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
     //     })
     //   )
     //   .subscribe();
-    this.items = [];
-    for (let i = 0; i < 10000; i++) {
-      this.items.push({ label: 'Item ' + i, value: 'Item ' + i });
-    }
+   
     this.dropDowns();
   }
 
@@ -121,23 +119,17 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   /**************************************************************************************************************************************************** */
   //common dropdown implementation
 
-  Common = this.fb.group({
-    Params: this.fb.group({
-      personName: [''],
-      personId: [''],
-    }),
-    key: [''],
-    start: [0],
-    count: [10],
-    className: ['DataPersonSearch'],
-  })
 
   get formObj(): FormGroup {
     return this.Common.get('Params') as FormGroup
   }
   ngAfterViewInit(): void {
+    // console.log('test');
+    
     if (this.viewport) {
       this.scrollable = this.viewport.scrolledIndexChange.subscribe(index => {
+        // console.log(index,'-----------',this.isLoading);
+
         if (index >= this.cdkLst.length - 8 && this.isLoading) {
           this.dropDowns();
         }
@@ -151,7 +143,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
     const count = this.Common.get('count')?.value || 0;
     try {
       this.bankServ.commonDropdown(this.Common.value).subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.Common.get('start')?.patchValue(start + count);
         if (data.length > 0) {
           this.cdkLst = [...this.cdkLst, ...data];
@@ -198,11 +190,18 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   // }
 
   debounceSearch = this.debounce((event: any) => {
+    this.Common.get('start')?.setValue(0);
+    const start = this.Common.get('start')?.value || 0;
+    const count = this.Common.get('count')?.value || 0;
     this.isLoading = false
     this.cdkLst = [];
+
     if (event.length > 0) {
       this.bankServ.onKeySearchDropDown(this.Common.value).subscribe(data => {
-        console.log('key upsearch event lst', data);
+        // console.log('key upsearch event lst', data);
+        this.Common.get('start')?.patchValue(start + count);
+        this.isLoading = true;
+
         if (data.length > 0) {
           this.cdkLst = [...this.cdkLst, ...data];
           this.totals = [...this.totals, ...data];
@@ -210,7 +209,6 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
       });
     }
     else {
-      this.Common.get('start')?.setValue(0);
       this.dropDowns();
 
     }
@@ -241,7 +239,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
    * @param delay The debounce time in milliseconds. Defaults to 1000.
    * @returns A debounced version of the provided function.
    */
-  debounce(cb: (...args: any[]) => void, delay = 2000) {
+  debounce(cb: (...args: any[]) => void, delay = 1000) {
     let timeout: ReturnType<typeof setTimeout>;
     return (...args: any[]) => {
       clearTimeout(timeout);
@@ -265,7 +263,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
 
 
   onBlur(event: any) {
-    console.log('selected value', event);
+    // console.log('selected value', event);
   }
   isMultiple: boolean = false
 
@@ -273,4 +271,14 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   objKeysLength(obj: any) {
     return Object.keys(obj).length;
   }
+  Common = this.fb.group({
+    Params: this.fb.group({
+      personName: [''],
+      // personId: [''],
+    }),
+    key: [''],
+    start: [0],
+    count: [10],
+    className: ['DataPersonSearch'],
+  })
 }
