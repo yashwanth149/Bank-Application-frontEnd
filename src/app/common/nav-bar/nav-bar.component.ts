@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IdleService } from 'src/app/idle.service';
 
@@ -11,7 +11,8 @@ import { IdleService } from 'src/app/idle.service';
 export class NavBarComponent implements OnInit,OnDestroy {
   buttonLabels: string[] = [];
 
-  constructor(private route: Router) { }
+  constructor(private route: Router,
+  ) { }
   @ViewChild('sidenav') sidenav: ElementRef;
 
   // idleServ = inject(IdleService);
@@ -54,6 +55,10 @@ export class NavBarComponent implements OnInit,OnDestroy {
     this.route.navigate(['/R&D'])
   }
 
+  toRD(){
+    this.route.navigate(['/reserch'])
+  }
+
   onAction(){
     // this.idleServ.resetTImer();
   }
@@ -63,5 +68,4 @@ export class NavBarComponent implements OnInit,OnDestroy {
     //   this.idleSubscription.unsubscribe();
     // }
   }
-
 }

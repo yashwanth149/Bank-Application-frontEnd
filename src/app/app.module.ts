@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, ApplicationRef, Injector, NgModule } from '@angular/core';
+import {  NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -18,6 +18,8 @@ import { AppComponent } from './app.component';
 import { CdkVirtualScrollComponent } from './cdk-virtual-scroll/cdk-virtual-scroll.component';
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { MnbarComponent } from './mnbar/mnbar.component';
+import { RDComponent } from './r-d/r-d.component';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -34,6 +36,7 @@ import { MnbarComponent } from './mnbar/mnbar.component';
     CitySearchComponent,
     CdkVirtualScrollComponent,
     MnbarComponent,
+    RDComponent,
 
 
   ],
@@ -45,7 +48,7 @@ import { MnbarComponent } from './mnbar/mnbar.component';
     SharedModule,
     GuidedTourModule,
     PDFExportModule,
-    
+    ScrollingModule,
   ],
 
   providers: [

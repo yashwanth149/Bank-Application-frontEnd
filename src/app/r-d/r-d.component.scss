@@ -1,0 +1,20 @@
+p {
+    font-family: Lato;
+  }
+  
+  .example-viewport {
+    height: 350px;
+    width: 99%;
+    border:1px solid #d3d3d3;
+  }
+  
+  .example-item {
+    height: 50px;
+    margin: 5px 10px;
+  }
+  
+  input[type="text"]:disabled {
+      background: #dddddd;
+      border:1px solid red;
+      padding:3px;
+  }

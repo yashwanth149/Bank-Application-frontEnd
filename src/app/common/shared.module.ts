@@ -5,7 +5,7 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GuidedTourModule, GuidedTourService } from 'ngx-guided-tour';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
@@ -25,7 +25,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     AutoCompleteModule,
     FormsModule,
     MatAutocompleteModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    
   ],
   exports:[NavBarComponent,
     MaterialModule,

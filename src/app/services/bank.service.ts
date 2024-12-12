@@ -85,4 +85,8 @@ export class BankService {
     return this.http.post<any[]>(`${this.apiServerUrl}/bank/on-key-search`,dataObj);
   }
 
+  public getPersons(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiServerUrl}/bank/getPersons`);
+  }
+
 }

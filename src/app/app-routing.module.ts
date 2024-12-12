@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CitymasterComponent } from './citymaster/citymaster.component';
 import { CitySearchComponent } from './city-search/city-search.component';
 import { CdkVirtualScrollComponent } from './cdk-virtual-scroll/cdk-virtual-scroll.component';
+import { RDComponent } from './r-d/r-d.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'city-search', component: CitySearchComponent, canActivate: [AuthGuard] },
   { path: 'city-search/:id', component: CitymasterComponent, canActivate: [AuthGuard] },
   { path: 'R&D', component: CdkVirtualScrollComponent, canActivate: [AuthGuard] },
+  { path: 'reserch', component: RDComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
