@@ -3,9 +3,10 @@
 }
 
 
-app-nav-bar{
+app-nav-bar {
     position: fixed;
 }
+
 .main {
     width: 85%;
     margin-left: 15%;
@@ -62,10 +63,11 @@ app-nav-bar{
 // search
 
 #searchHead {
-    margin:1rem auto 0 auto;
+    margin: 1rem auto 0 auto;
     width: 83%;
     font-size: 18px;
 }
+
 .localSearch {
     margin: 0 auto;
     width: 72%;
@@ -74,22 +76,7 @@ app-nav-bar{
     justify-content: space-between;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 
-    .inputSearch {
-        display: flex;
-        
-        input:not(:last-child){
-            margin-right: 2rem;
-        }
 
-        input {
-            width: 200px;
-            outline: 1px solid rgba($color: #BFBFBF, $alpha: .4);
-            border-radius: 3px;
-            padding: 0 0 0 6px;
-            font-size: 13px;
-        }
-
-    }
 
     .search {
         height: 40px;
@@ -98,8 +85,19 @@ app-nav-bar{
 
 
 
+.inputSearch {
+    display: flex;
 
+    input:not(:last-child) {
+        margin-right: 2rem;
+    }
 
+    input {
+        width: 200px;
+        outline: 1px solid rgba($color: #BFBFBF, $alpha: .4);
+        border-radius: 3px;
+        padding: 0 0 0 6px;
+        font-size: 13px;
+    }
 
-
-
+}

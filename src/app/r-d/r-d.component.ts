@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BankService } from '../services/bank.service';
+import { first, lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-r-d',
@@ -11,18 +12,23 @@ export class RDComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private bankServ: BankService
+    private bankServ: BankService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    let lst = this.personsList();
+    this.personsList().then((tes: any) => {
+      tes.forEach(() => {
+        this.personList.push(this.personObj());
+      });
+      this.personList.patchValue(tes);
 
+    });
   }
 
   PersonForm = this.fb.group({
     persons: this.fb.array([this.personObj()]),
   })
-
 
   personObj() {
     return this.fb.group({
@@ -30,22 +36,27 @@ export class RDComponent implements OnInit {
       personName: ['']
     })
   }
+
   get personList(): FormArray {
     return this.PersonForm.get('persons') as FormArray;
   }
 
-  personsList() {
-    this.bankServ.getPersons().subscribe((response: any) => {
-      this.personList.clear()
-      response.forEach((item: any) => {
-        this.personList.push(this.personObj())
-      })
-      this.personList.patchValue(response)
-    })
+  pList: any[] = [];
+  async personsList() {
+    return new Promise((resolve) => {
+      this.bankServ.getPersons().subscribe(response => {
+        resolve(response);
+        this.pList = response;
+      });
+    });
   }
 
-  onSubmit() {
-    console.log('formValues')
+  addPerson() {
+    this.personList.push(this.personObj());
+    // this.personList = [...this.personList];
   }
 
+  deletePerson(id:any){
+    alert(id);
+  }
 }

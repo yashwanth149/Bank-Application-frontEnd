@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { BankService } from '../services/bank.service';
-import { map, Observable, startWith, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { color } from 'html2canvas/dist/types/css/types/color';
 
 
 export interface StateGroup {
@@ -33,12 +34,16 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   showDropdown: boolean = false; // Initialize showDropdown
   items: any[] = []; // Initialize showDropdown
   testLst: any[] = [];
+  paramsMap = new Map();
+  P1: string;
+  P2: string;
+  params: number
+  @Input() Common: any;
+  @Output() onBlurEvent = new EventEmitter<any>();
 
-// @Input() Common:any  = null;
 
   constructor(
     private bankServ: BankService,
-    private fb: FormBuilder
 
   ) { }
   public control = new FormControl();
@@ -72,8 +77,13 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
     //     })
     //   )
     //   .subscribe();
-   
+
     this.dropDowns();
+    console.log(this.Common.value);
+    
+    
+
+
   }
 
   // ngAfterViewInit(): void {
@@ -125,12 +135,13 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     // console.log('test');
-    
+
     if (this.viewport) {
       this.scrollable = this.viewport.scrolledIndexChange.subscribe(index => {
         // console.log(index,'-----------',this.isLoading);
+        const renderedRange = this.viewport.getRenderedRange(); //  the currently rendered range
 
-        if (index >= this.cdkLst.length - 8 && this.isLoading) {
+        if (renderedRange.end >= this.cdkLst.length - 4 && this.isLoading && !this.isInputSearch) {
           this.dropDowns();
         }
       });
@@ -143,11 +154,12 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
     const count = this.Common.get('count')?.value || 0;
     try {
       this.bankServ.commonDropdown(this.Common.value).subscribe(data => {
-        // console.log(data);
+        console.log('test',data);
+        
         this.Common.get('start')?.patchValue(start + count);
         if (data.length > 0) {
           this.cdkLst = [...this.cdkLst, ...data];
-          this.matchedList = [...this.matchedList, ...data];
+          // this.matchedList = [...this.matchedList, ...data];
           this.isLoading = true;
         } else {
           this.isLoading = false
@@ -160,7 +172,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
 
 
 
-  filteredList: any[] = []
+
   // onKey(event: any) {
   //   this.isLoading=false
   //   if (event) {
@@ -189,47 +201,36 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   //   }
   // }
 
+  isInputSearch: boolean = false
   debounceSearch = this.debounce((event: any) => {
+    this.isInputSearch = true
     this.Common.get('start')?.setValue(0);
     const start = this.Common.get('start')?.value || 0;
     const count = this.Common.get('count')?.value || 0;
     this.isLoading = false
     this.cdkLst = [];
-
     if (event.length > 0) {
       this.bankServ.onKeySearchDropDown(this.Common.value).subscribe(data => {
-        // console.log('key upsearch event lst', data);
+
         this.Common.get('start')?.patchValue(start + count);
         this.isLoading = true;
-
         if (data.length > 0) {
-          this.cdkLst = [...this.cdkLst, ...data];
+          this.cdkLst = [...data];
           this.totals = [...this.totals, ...data];
         }
       });
     }
     else {
+      this.isInputSearch = false
       this.dropDowns();
 
     }
   })
-  onKey(event: any) {
-    this.debounceSearch(event)
-  }
 
 
   filteredLst: any[] = []
   matchedList: any[] = []
-  // onKey(event: any) {
-  //   console.log(event);
-  //    this.filteredLst = this.cdkLst;
-  //   this.matchedList  = this.filteredLst.filter((obj: any) => {
-  //     return Object.values(obj).some((value: any) => {
-  //       return value.toString().toLowerCase().includes(event.toString().toLowerCase());
-  //     });
-  //   });
-  //   console.log(this.matchedList);
-  // }
+
   /**
    * Creates a debounced function that delays invoking the provided
    * function until after `delay` milliseconds have elapsed since the
@@ -250,35 +251,93 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
   }
 
 
-  // getHeight(): string {
-  //   const itemCount = this.cdkLst.length;
-  //   const itemHeight = 30;
-  //   const maxHeight = 220;
-  //   const minHeight = 100;
 
-  //   const calculatedHeight = Math.min(maxHeight, Math.max(minHeight, itemCount * itemHeight));
-
-  //   return `${calculatedHeight}px`;
-  // }
 
 
   onBlur(event: any) {
-    // console.log('selected value', event);
+    let obj = {
+      event: event,
+      data: this.cdkLst
+    }
+    this.onBlurEvent.emit(obj);
+    
   }
-  isMultiple: boolean = false
+  test:any;
 
-  // In your component
-  objKeysLength(obj: any) {
-    return Object.keys(obj).length;
+  // objKeysLength(obj: any) {
+  //   return Object.keys(obj).length;
+  // }
+
+
+
+
+
+
+
+  /**
+   * Original From..............................
+   */
+  // Common = this.fb.group({
+  //   Params: this.fb.group({
+
+  //   }),
+  //   key: [''],
+  //   start: [0],
+  //   count: [10],
+  //   className: ['DataPersonSearch'],
+  // })
+
+  // private fetchDropdownData(start: number, count: number): void {
+  //   try {
+  //     this.bankServ.commonDropdown(this.Common.value).subscribe(data => {
+  //       this.Common.get('start')?.patchValue(start + count);
+  //       if (data.length > 0) {
+  //         this.cdkLst = [...this.cdkLst, ...data];
+  //         this.matchedList = [...this.matchedList, ...data];
+  //         this.isLoading = true;
+  //       } else {
+  //         this.isLoading = false
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.error('Error fetching dropdown data:', error);
+  //   }
+  // }
+
+  // private getStartAndCount(): { start: number; count: number } {
+  //   const start = this.Common.get('start')?.value || 0;
+  //   const count = this.Common.get('count')?.value || 0;
+  //   return { start, count };
+  // }
+
+  // debounceSearch = this.debounce((event: any) => {
+  //   const { start, count } = this.getStartAndCount();
+  //   this.isLoading = false;
+  //   this.cdkLst = [];
+  //   if (event.length > 0) {
+  //     this.bankServ.onKeySearchDropDown(this.Common.value).subscribe(data => {
+  //       this.Common.get('start')?.patchValue(start + count);
+  //       this.isLoading = true;
+  //       if (data.length > 0) {
+  //         this.cdkLst = [...this.cdkLst, ...data];
+  //       }
+  //     });
+  //   } else {
+  //     this.fetchDropdownData(start, count);
+  //   }
+  // });
+
+  // dropDowns() {
+  //   const { start, count } = this.getStartAndCount();
+  //   this.fetchDropdownData(start, count);
+  // }
+  selectedOption(event: any, input: any) {
+    let obj = {
+      event: event,
+      data: this.cdkLst?.find((item: any) => item.id == event.value)
+    }
+    
+    this.onBlurEvent.emit(obj);
+    // Your logic to handle the selected option here
   }
-  Common = this.fb.group({
-    Params: this.fb.group({
-      personName: [''],
-      // personId: [''],
-    }),
-    key: [''],
-    start: [0],
-    count: [10],
-    className: ['DataPersonSearch'],
-  })
 }

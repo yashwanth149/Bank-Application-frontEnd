@@ -5,16 +5,26 @@
   <div class="main">
     <app-mnbar></app-mnbar>
     <h2 style="letter-spacing: 3px; word-spacing: 3px;font-weight: 400;" id="searchHead">Search through fields</h2>
-    <div class="localSearch" [formGroup]="searchForm">
+    <!-- <div class="localSearch"> -->
+      <!-- <div class="inputSearch">
+        <input matInput placeholder="Search BId...." formControlName="bid">
+        <input matInput placeholder="Search Bank Name...." formControlName="bname">
+        <input matInput placeholder="Search Mainbranch...." formControlName="mainBranch">
+        <app-cdk-virtual-scroll></app-cdk-virtual-scroll>
+
+        <button class="search" type="submit" (click)="searchbtn(searchForm)" mat-raised-button>search</button>
+      </div> -->
+    <!-- </div> -->
+    <mat-card [formGroup]="searchForm" style="width: 1000px; margin: auto;">
       <div class="inputSearch">
         <input matInput placeholder="Search BId...." formControlName="bid">
         <input matInput placeholder="Search Bank Name...." formControlName="bname">
         <input matInput placeholder="Search Mainbranch...." formControlName="mainBranch">
+        <app-cdk-virtual-scroll [Common]="Common"></app-cdk-virtual-scroll>
+
         <button class="search" type="submit" (click)="searchbtn(searchForm)" mat-raised-button>search</button>
-
       </div>
-    </div>
-
+    </mat-card>
 
     <div class="table">
       <!-- <app-cdk-virtual-scroll [Common]="Common"></app-cdk-virtual-scroll> -->

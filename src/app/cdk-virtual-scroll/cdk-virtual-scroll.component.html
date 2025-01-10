@@ -1,16 +1,16 @@
-<div class="mainDiv">
+<!-- <div class="mainDiv">
     <app-nav-bar></app-nav-bar>
 
     <div class="subdiv">
-        <app-mnbar></app-mnbar>
-        <!-- <mat-card style="width: 30%;" id="ngForm">
+        <app-mnbar></app-mnbar> -->
+<!-- <mat-card style="width: 30%;" id="ngForm">
             <cdk-virtual-scroll-viewport itemSize="30" style="height: 150px;">
                 <mat-list-item *cdkVirtualFor="let data of dataList; let i = index">
                     <li>{{data.personId}}</li>
                 </mat-list-item>
             </cdk-virtual-scroll-viewport>
         </mat-card> -->
-        <!-- <div class="form-group">
+<!-- <div class="form-group">
             <input type="text" placeholder="Pick one" aria-label="Number" class="form-input form-control"
                 [matAutocomplete]="auto" #val (keyup)="onKey(val.value)">
             <mat-autocomplete #auto="matAutocomplete">
@@ -25,7 +25,7 @@
             </mat-autocomplete>
         </div> -->
 
-        <!-- <div class="card flex justify-content-center">
+<!-- <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems"
                 [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" optionLabel="label"
                 [autofocus]="true">
@@ -37,7 +37,7 @@
             [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [autofocus]="true">
         </p-autoComplete>
         <br> -->
-        <!-- <input type="text" placeholder="Pick one" [formControl]="control" matInput [matAutocomplete]="auto">
+<!-- <input type="text" placeholder="Pick one" [formControl]="control" matInput [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
             <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" [ngStyle]="{'height': height}"
                 itemSize="25">
@@ -47,7 +47,7 @@
             </cdk-virtual-scroll-viewport>
         </mat-autocomplete> -->
 
-        <!-- <div class="form-group">
+<!-- <div class="form-group">
             <input type="text" placeholder="Pick one" aria-label="Number" class="form-input form-control"
                 [matAutocomplete]="auto" #val (keyup)="onKey(val.value)">
             <mat-autocomplete #auto="matAutocomplete">
@@ -63,10 +63,10 @@
 
         </div> -->
 
-        <!-- style="display: flex; justify-content: center;margin-top: 10%;" -->
-        <form [formGroup]="Common">
-            <div>
-                <input type="text" matInput placeholder="" required [matAutocomplete]="autoGroup" #val
+<!-- style="display: flex; justify-content: center;margin-top: 10%;" -->
+<!-- <form [formGroup]="Common">
+            <div class="inputSearch">
+                <input type="text" matInput placeholder="Search" required [matAutocomplete]="autoGroup" #val
                     (keyup)="onKey(val.value)" (blur)="onBlur(val.value)" formControlName="key">
                 <mat-autocomplete #autoGroup="matAutocomplete">
                     <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30"
@@ -84,6 +84,41 @@
                     </cdk-virtual-scroll-viewport>
                 </mat-autocomplete>
             </div>
-        </form>
+        </form> -->
+<form [formGroup]="Common">
+    <div class="inputSearch">
+        <input type="text" matInput placeholder="Search" required [matAutocomplete]="autoGroup" #val
+            (input)="debounceSearch(val.value)" formControlName="key">
+        <mat-autocomplete #autoGroup="matAutocomplete">
+            <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30" style="min-height: 320px;"
+                minBufferPx="100" maxBufferPx="200">
+
+                <!-- <div *cdkVirtualFor="let group of cdkLst">
+                    <mat-optgroup 
+                        [label]="Common?.get('lable')?.value!=Common?.get('value')?.value ? group[Common?.get('lable')?.value] :'' ">
+                        <mat-option [value]="Common?.get('lable')?.value!=Common?.get('value')?.value ? group[Common?.get('lable')?.value] :group[Common?.get('value')?.value]">
+                            {{ group[Common?.get('value')?.value] }}
+                        </mat-option>
+                    </mat-optgroup>
+                </div> -->
+                <div *cdkVirtualFor="let group of cdkLst">
+                    <mat-optgroup
+                        [label]="Common?.get('lable')?.value==Common?.get('value')?.value ?  '' :group[Common?.get('lable')?.value]">
+                        <mat-option
+                            [value]="Common?.get('lable')?.value==Common?.get('value')?.value ? group[Common?.get('lable')?.value] : group[Common?.get('value')?.value]"
+                            (onSelectionChange)="selectedOption($event.source.value, val?.value)">
+                            {{ Common?.get('lable')?.value==Common?.get('value')?.value ?
+                            group[Common?.get('lable')?.value] : group[Common?.get('value')?.value]}}
+                        </mat-option>
+                    </mat-optgroup>
+                </div>
+                <mat-optgroup *ngIf="cdkLst.length == 0" class="test" style="visibility: visible;">
+                    {{ 'No Data Found' }}
+                </mat-optgroup>
+            </cdk-virtual-scroll-viewport>
+        </mat-autocomplete>
     </div>
-</div>
+</form>
+
+<!-- </div>
+</div> -->

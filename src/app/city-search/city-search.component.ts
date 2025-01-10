@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { GuidedTourService, Orientation } from 'ngx-guided-tour';
 import { BankService } from 'src/app/services/bank.service';
 import { IdleService } from '../idle.service';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-city-search',
@@ -14,26 +15,26 @@ import { IdleService } from '../idle.service';
 export class CitySearchComponent implements OnInit {
 
   cityLst: MatTableDataSource<any>;;
-  testList:Number[] = [];
-  test2List:any[] = [];
+  testList: Number[] = [];
+  test2List: any[] = [];
   constructor(
     private bankserv: BankService,
-    private rout:Router,
-    private guideServ:GuidedTourService,
-    private idleServ:IdleService,
-    private eleRef:ElementRef,
+    private rout: Router,
+    private guideServ: GuidedTourService,
+    private idleServ: IdleService,
+    private fb: FormBuilder,
   ) {
     for (let i = 0; i < 10000; i++) {
       this.testList.push(i);
     }
-   }
+  }
 
   @ViewChild(MatPaginator) pagnat !: MatPaginator;
   displayedColumns: string[] = ['slNo', 'cityName', 'action'];
 
   ngOnInit(): void {
-    this.idleServ.isGuideCheck.subscribe(val=>{
-      if(val){this.tour();}
+    this.idleServ.isGuideCheck.subscribe(val => {
+      if (val) { this.tour(); }
     })
     this.getCitylst();
   }
@@ -50,12 +51,12 @@ export class CitySearchComponent implements OnInit {
   }
 
   editCity(id: number) {
-    this.rout.navigate(['city-search',id]);
+    this.rout.navigate(['city-search', id]);
   }
 
 
   deletecity(id: number) {
-    this.bankserv.removeCity(id).subscribe(()=>{
+    this.bankserv.removeCity(id).subscribe(() => {
       this.getCitylst();
     });
   }
@@ -91,5 +92,39 @@ export class CitySearchComponent implements OnInit {
   }
 
   // @HostListener('unloaded')
+
+  Common = this.fb.group({
+    Params: this.fb.group({
+      cname: [''],
+      cid: [''], 
+    }),
+    lable: 'cname',
+    value: 'cid',
+    key: [''],
+    start: [0],
+    count: [10],
+    className: ['CitySearchVO'],
+  })
+  // Common = this.fb.group({
+  //   Params: this.fb.group({
+  //     branchName: [''],
+  //     branchId: [''],
+  //   }),
+  //   lable:'branchName',
+  //   value:'branchId',
+  //   key: [''],
+  //   start: [0],
+  //   count: [10],
+  //   className: ['BranchSearchVO'],
+  // })
+
+  parentData: any
+  onBlur(event: any) {
+    if (event.data) {
+      this.cityLst =  new MatTableDataSource(event.data);
+      this.parentData = event
+    }
+  }
+
 
 }
