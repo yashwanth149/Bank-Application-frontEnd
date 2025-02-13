@@ -80,9 +80,6 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
 
     this.dropDowns();
     console.log(this.Common.value);
-    
-    
-
 
   }
 
@@ -336,8 +333,6 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
       event: event,
       data: this.cdkLst?.find((item: any) => item.id == event.value)
     }
-    
     this.onBlurEvent.emit(obj);
-    // Your logic to handle the selected option here
   }
 }

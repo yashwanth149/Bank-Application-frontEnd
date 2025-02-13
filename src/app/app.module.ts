@@ -19,8 +19,9 @@ import { CdkVirtualScrollComponent } from './cdk-virtual-scroll/cdk-virtual-scro
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { MnbarComponent } from './mnbar/mnbar.component';
 import { RDComponent } from './r-d/r-d.component';
-import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
+import { StoreModule } from '@ngrx/store';
 
 
 
@@ -49,6 +50,8 @@ import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrollin
     GuidedTourModule,
     PDFExportModule,
     ScrollingModule,
+    StoreModule.forRoot({}, {}),
+
   ],
 
   providers: [

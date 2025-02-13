@@ -72,21 +72,29 @@ export class BankService {
     return this.http.delete<void>(`${this.apiServerUrl}/bank/deleteCity/${id}`);
   }
 
-  public getAllPersons(start:number,end:number): Observable<Person[]> {
+  public getAllPersons(start: number, end: number): Observable<Person[]> {
     return this.http.get<Person[]>(`${this.apiServerUrl}/bank/getAllPersons?start=${start}&end=${end}`);
   }
 
 
-  public commonDropdown(dataObj:any): Observable<any[]> {
-    return this.http.post<any[]>(`${this.apiServerUrl}/bank/common-search`,dataObj);
+  public commonDropdown(dataObj: any): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiServerUrl}/bank/common-search`, dataObj);
   }
 
-  public onKeySearchDropDown(dataObj:any): Observable<any[]> {
-    return this.http.post<any[]>(`${this.apiServerUrl}/bank/on-key-search`,dataObj);
+  public onKeySearchDropDown(dataObj: any): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiServerUrl}/bank/on-key-search`, dataObj);
   }
 
   public getPersons(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiServerUrl}/bank/getPersons`);
+  }
+
+  public saveTotalBankBalane(form: any): Observable<any> {
+    return this.http.post<any>(`${this.apiServerUrl}/bank/save-total-balance`, form);
+  }
+
+  public getTotalBankBalane(id: any): Observable<any> {
+    return this.http.get<any>(`${this.apiServerUrl}/bank/get-total-balance?id=${id}`);
   }
 
 }

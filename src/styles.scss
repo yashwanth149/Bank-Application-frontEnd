@@ -13,11 +13,16 @@ body {
     outline: 1px solid rgba($color: #000000, $alpha: .4);
     border: none;
     border-radius: 2px;
-
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .display__flex {
     display: flex;
+}
+
+.jsutify-content-space-between {
+    justify-content: space-between;
 }
 
 .row-container {
@@ -60,13 +65,21 @@ body {
 
 
 
+.w50 {
+    width: 50px !important;
+}
+.w100 {
+    width: 100px !important;
+}
+.w150 {
+    width: 150px !important;
+}
+.w1750 {
+    width: 1750px !important;
+}
 .w200 {
     width: 200px !important;
 }
-
-
-
-
 
 
 

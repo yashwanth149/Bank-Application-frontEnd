@@ -13,6 +13,7 @@ app-nav-bar {
 }
 
 .table {
+    margin-top: 2rem;
     padding: 2rem 6rem 0 6rem;
     z-index: 1;
 }
@@ -62,26 +63,26 @@ app-nav-bar {
 
 // search
 
-#searchHead {
-    margin: 1rem auto 0 auto;
-    width: 83%;
-    font-size: 18px;
-}
+// #searchHead {
+//     margin: 1rem auto 0 auto;
+//     width: 83%;
+//     font-size: 18px;
+// }
 
-.localSearch {
-    margin: 0 auto;
-    width: 72%;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+// .localSearch {
+//     margin: 0 auto;
+//     width: 72%;
+//     padding: 1rem;
+//     display: flex;
+//     justify-content: space-between;
+//     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
 
 
 
-    .search {
-        height: 40px;
-    }
-}
+//     .search {
+//         height: 40px;
+//     }
+// }
 
 
 

@@ -32,12 +32,15 @@ export class BankListComponent implements OnInit {
     private idleServ: IdleService,
   ) { }
 
-  displayedColumns: string[] = ['bid', 'bname', 'mainBranch', 'email', 'phno', 'actions'];
+  displayedColumns: string[] = ['bid', 'bname', 'mainBranch', 'email', 'phno','bankBalance', 'actions'];
 
   ngOnInit(): void {
-  
-    this.idleServ.isGuideCheck.subscribe(val=>{
-      if(val){this.tour();}
+
+    this.idleServ.isGuideCheck.subscribe(val => {
+      if (val) { this.tour(); }
+    })
+    this.bankService.getTotalBankBalane(1).subscribe(resp => {
+      this.TotalBankBalance.patchValue(resp);
     })
     this.getBanks();
   }
@@ -121,9 +124,17 @@ export class BankListComponent implements OnInit {
   }
 
 
+  TotalBankBalance = this.fb.group({
+    id: [1],
+    totalBankBalance: [null],
+  })
 
 
-
+  saveBankbalance() {
+    this.bankService.saveTotalBankBalane(this.TotalBankBalance.value).subscribe(resp => {
+      console.log(resp)
+    })
+  }
 
 
   /**
@@ -134,8 +145,8 @@ export class BankListComponent implements OnInit {
       personName: [''],
       // personId: [''],
     }),
-    lable:'personName',
-    value:'personName',
+    lable: 'personName',
+    value: 'personName',
     key: [''],
     start: [0],
     count: [10],

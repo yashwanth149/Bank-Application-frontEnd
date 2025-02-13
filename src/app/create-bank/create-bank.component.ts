@@ -42,6 +42,7 @@ export class CreateBankComponent implements OnInit {
       mainBranch: ['', Validators.required],
       email: ['', Validators.required],
       phno: ['', Validators.required],
+      bankBalance: ['', Validators.required],
       lst: this.fb.array([
       ]),
     });
