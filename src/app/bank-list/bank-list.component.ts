@@ -8,6 +8,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { GuidedTourService, Orientation } from 'ngx-guided-tour';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IdleService } from '../idle.service';
+import { Observable } from 'rxjs';
+import { AppState } from '../app.state';
+import { Store } from '@ngrx/store';
+import * as TotaBalanceActions from '../actions/tota-balance.actions';
+
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,9 +22,10 @@ import { IdleService } from '../idle.service';
 })
 export class BankListComponent implements OnInit {
 
-
+  balance: number;
 
   public bankLst: MatTableDataSource<any>;
+  public banks: any[];
   public bank!: Bank[];
   isGuide: string;
   @ViewChild(MatPaginator) pagnat !: MatPaginator;
@@ -27,22 +33,50 @@ export class BankListComponent implements OnInit {
     private fb: FormBuilder,
     private bankService: BankService,
     private router: Router,
-    private actRoute: ActivatedRoute,
     private guideServ: GuidedTourService,
     private idleServ: IdleService,
-  ) { }
+    private store: Store<AppState>,
+  ) {
+    // store.select('balance').subscribe((val: any) => this.balance = val);
+    // console.log('balance initial state', this.balance);
+  }
 
-  displayedColumns: string[] = ['bid', 'bname', 'mainBranch', 'email', 'phno','bankBalance', 'actions'];
+  displayedColumns: string[] = ['bid', 'bname', 'mainBranch', 'email', 'phno', 'bankBalance', 'actions'];
 
   ngOnInit(): void {
 
     this.idleServ.isGuideCheck.subscribe(val => {
       if (val) { this.tour(); }
     })
-    this.bankService.getTotalBankBalane(1).subscribe(resp => {
-      this.TotalBankBalance.patchValue(resp);
-    })
+
+    this.setTotalBalanceFormData();
+    // this.bankService.getTotalBankBalane(1).subscribe(resp => {
+    //   this.TotalBankBalance.patchValue(resp);
+    // })
+    // this.store.select('balance').subscribe((val: any) => console.log('balance', val));
+
+    // this.store.dispatch(new TotaBalanceActions.AddBalance(Number(this.TotalBankBalance.value.totalBankBalance)));
+    // this.store.select('balance').subscribe((val: any) => {
+    //   this.balance = val; console.log('balance', val);
+    // });
+
     this.getBanks();
+  }
+
+  
+  TotalBankBalance = this.fb.group({
+    id: [1],
+    totalBankBalance: [0],
+  })
+
+
+  async setTotalBalanceFormData() {
+    const resp = await this.bankService.getTotalBankBalane(1).toPromise();
+    if (resp) this.TotalBankBalance.patchValue(resp);
+    this.store.dispatch(new TotaBalanceActions.UpdateBalance(+resp.totalBankBalance));
+    this.store.select('balance').subscribe((val: any) => this.balance = val);
+
+
   }
 
   searchForm = this.fb.group({
@@ -54,6 +88,8 @@ export class BankListComponent implements OnInit {
   getBanks() {
     this.bankService.getBanks()
       .subscribe(response => {
+        this.banks = response;
+
         this.bankLst = new MatTableDataSource(response);
         this.bankLst.paginator = this.pagnat;
       }),
@@ -67,9 +103,13 @@ export class BankListComponent implements OnInit {
   }
 
   delete(id: number) {
+    const balance = this.banks.find((item: any) => item.bid == id);
+    this.store.dispatch(new TotaBalanceActions.RemoveBalance(Number(balance.bankBalance)));
     this.bankService.deleteBank(id).subscribe(response => {
       this.getBanks();
     });
+    this.store.select('balance').subscribe((val: any) => this.balance = val);
+
   }
 
   applyFilter(key: string) {
@@ -114,8 +154,8 @@ export class BankListComponent implements OnInit {
   }
 
   searchbtn(data: any) {
-    console.log(this.searchForm.value);
     this.bankService.searchBank(data.value).subscribe(resp => {
+      this.banks = resp;
       this.bankLst = new MatTableDataSource(resp);
 
     });
@@ -124,15 +164,10 @@ export class BankListComponent implements OnInit {
   }
 
 
-  TotalBankBalance = this.fb.group({
-    id: [1],
-    totalBankBalance: [null],
-  })
-
 
   saveBankbalance() {
+    this.TotalBankBalance.get('totalBankBalance')?.patchValue(this.balance);
     this.bankService.saveTotalBankBalane(this.TotalBankBalance.value).subscribe(resp => {
-      console.log(resp)
     })
   }
 

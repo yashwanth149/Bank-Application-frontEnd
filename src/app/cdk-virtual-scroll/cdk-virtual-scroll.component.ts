@@ -151,7 +151,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
     const count = this.Common.get('count')?.value || 0;
     try {
       this.bankServ.commonDropdown(this.Common.value).subscribe(data => {
-        console.log('test',data);
+        // console.log('test',data);
         
         this.Common.get('start')?.patchValue(start + count);
         if (data.length > 0) {

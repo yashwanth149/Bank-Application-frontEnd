@@ -7,6 +7,9 @@ import { BranchCity } from '../models/branchcity.model';
 import { MatDialog } from '@angular/material/dialog';
 import { PersonComponent } from '../person/person.component';
 import { GuidedTourService, Orientation } from 'ngx-guided-tour';
+import { AppState } from '../app.state';
+import { Store } from '@ngrx/store';
+import * as TotaBalanceActions from '../actions/tota-balance.actions';
 
 @Component({
   selector: 'app-create-bank',
@@ -28,7 +31,8 @@ export class CreateBankComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private bankService: BankService,
     private dialog: MatDialog,
-    private guideServ: GuidedTourService
+    private guideServ: GuidedTourService,
+    private store: Store<AppState>,
   ) { }
 
   public createForm!: FormGroup;
@@ -74,6 +78,7 @@ export class CreateBankComponent implements OnInit {
           });
 
           this.createForm.patchValue(response);
+          this.BalObj.existingBalance = response.bankBalance;
           this.displayObjectData = this.createForm.value;
 
         });
@@ -136,8 +141,6 @@ export class CreateBankComponent implements OnInit {
     });
 
     dialogBox.afterClosed().subscribe((dataBack: any) => {
-
-
       if (dataBack) {
         this.getpersonForm(branchIndex).clear();
         dataBack.dynamicArray.forEach((item: any) => {
@@ -177,9 +180,15 @@ export class CreateBankComponent implements OnInit {
     }
   }
 
-
+  BalObj = {
+    existingBalance: 0,
+    currentBalance: 0
+  }
   submit() {
     console.log(this.createForm.value);
+    this.BalObj.currentBalance = Number(this.createForm.value.bankBalance) ?? 0;
+    // this.store.dispatch(new TotaBalanceActions.AddBalance(Number(this.createForm.value.bankBalance)));
+    this.store.dispatch(new TotaBalanceActions.AddBalance(this.BalObj));
     if (this.createForm.valid) {
       this.bankService.addBank(this.createForm.value)
         .subscribe(() => {

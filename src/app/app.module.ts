@@ -1,4 +1,4 @@
-import {  NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -22,6 +22,7 @@ import { RDComponent } from './r-d/r-d.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { StoreModule } from '@ngrx/store';
+import { totalBalanceReducer } from './reducer/total-balance.reducer';
 
 
 
@@ -50,7 +51,7 @@ import { StoreModule } from '@ngrx/store';
     GuidedTourModule,
     PDFExportModule,
     ScrollingModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ balance: totalBalanceReducer })
 
   ],
 
@@ -59,7 +60,7 @@ import { StoreModule } from '@ngrx/store';
     IdleService,
   ],
   bootstrap: [AppComponent],
-  exports:[GuidedTourModule]
+  exports: [GuidedTourModule]
 })
 export class AppModule {
- }
+}
