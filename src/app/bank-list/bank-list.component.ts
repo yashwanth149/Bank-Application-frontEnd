@@ -2,16 +2,17 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/
 import { Bank } from '../models/bank.model';
 import { BankService } from '../services/bank.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { GuidedTourService, Orientation } from 'ngx-guided-tour';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { IdleService } from '../idle.service';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState } from '../app.state';
-import { Store } from '@ngrx/store';
-import * as TotaBalanceActions from '../actions/tota-balance.actions';
+import * as TotaBalanceActions from "../store/total-balance-store/total-balance.actions";
+import { isLoadingSelector, totalBalanceSelector } from '../store/total-balance-store/total-balance.selectors';
+import { AppStateInterface } from '../app-state.interface';
 
 
 @Component({
@@ -28,6 +29,9 @@ export class BankListComponent implements OnInit {
   public banks: any[];
   public bank!: Bank[];
   isGuide: string;
+  // public totalBalance$ = this.store.select(selectTotalBalanceState);
+  public totalBalance$: Observable<number>;
+  isLoaded$: Observable<boolean>;
   @ViewChild(MatPaginator) pagnat !: MatPaginator;
   constructor(
     private fb: FormBuilder,
@@ -35,8 +39,10 @@ export class BankListComponent implements OnInit {
     private router: Router,
     private guideServ: GuidedTourService,
     private idleServ: IdleService,
-    private store: Store<AppState>,
+    private store: Store<AppStateInterface>
   ) {
+    this.isLoaded$ = this.store.pipe(select(isLoadingSelector));
+
     // store.select('balance').subscribe((val: any) => this.balance = val);
     // console.log('balance initial state', this.balance);
   }
@@ -44,11 +50,17 @@ export class BankListComponent implements OnInit {
   displayedColumns: string[] = ['bid', 'bname', 'mainBranch', 'email', 'phno', 'bankBalance', 'actions'];
 
   ngOnInit(): void {
-
     this.idleServ.isGuideCheck.subscribe(val => {
       if (val) { this.tour(); }
     })
+    this.isLoaded$.subscribe(val => {
+      if (val) {
+        this.store.dispatch(TotaBalanceActions.getTotalBalence());
+      }
+    })
+    this.store.pipe(select(totalBalanceSelector)).subscribe(val => this.balance = val);
 
+    // this.totalBalance$.subscribe(val => console.log('total', val));
     this.setTotalBalanceFormData();
     // this.bankService.getTotalBankBalane(1).subscribe(resp => {
     //   this.TotalBankBalance.patchValue(resp);
@@ -63,7 +75,7 @@ export class BankListComponent implements OnInit {
     this.getBanks();
   }
 
-  
+
   TotalBankBalance = this.fb.group({
     id: [1],
     totalBankBalance: [0],
@@ -71,11 +83,6 @@ export class BankListComponent implements OnInit {
 
 
   async setTotalBalanceFormData() {
-    const resp = await this.bankService.getTotalBankBalane(1).toPromise();
-    if (resp) this.TotalBankBalance.patchValue(resp);
-    this.store.dispatch(new TotaBalanceActions.UpdateBalance(+resp.totalBankBalance));
-    this.store.select('balance').subscribe((val: any) => this.balance = val);
-
 
   }
 
@@ -104,11 +111,9 @@ export class BankListComponent implements OnInit {
 
   delete(id: number) {
     const balance = this.banks.find((item: any) => item.bid == id);
-    this.store.dispatch(new TotaBalanceActions.RemoveBalance(Number(balance.bankBalance)));
     this.bankService.deleteBank(id).subscribe(response => {
       this.getBanks();
     });
-    this.store.select('balance').subscribe((val: any) => this.balance = val);
 
   }
 

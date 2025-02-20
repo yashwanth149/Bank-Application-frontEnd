@@ -22,7 +22,11 @@ import { RDComponent } from './r-d/r-d.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { StoreModule } from '@ngrx/store';
-import { totalBalanceReducer } from './reducer/total-balance.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { reducers } from './store/total-balance-store/total-balance.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { TotalBalanceEffects } from './store/total-balance-store/total-balance.effects';
 
 
 
@@ -51,8 +55,9 @@ import { totalBalanceReducer } from './reducer/total-balance.reducer';
     GuidedTourModule,
     PDFExportModule,
     ScrollingModule,
-    StoreModule.forRoot({ balance: totalBalanceReducer })
-
+    StoreModule.forRoot({'balance': reducers}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([TotalBalanceEffects]),
   ],
 
   providers: [

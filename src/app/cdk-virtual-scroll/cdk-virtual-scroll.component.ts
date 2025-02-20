@@ -79,7 +79,7 @@ export class CdkVirtualScrollComponent implements OnInit, AfterViewInit {
     //   .subscribe();
 
     this.dropDowns();
-    console.log(this.Common.value);
+    // console.log(this.Common.value);
 
   }
 
