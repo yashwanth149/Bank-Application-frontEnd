@@ -9,5 +9,6 @@ export const reducers = createReducer(
     on(TotaBalanceActions.getTotalBalence, (state) => ({ ...state, loadding: true })),
     on(TotaBalanceActions.getTotalBalenceSuccess, (state, action) => ({ ...state, loadding: false, totalBalance: action.totalBalance })),
     on(TotaBalanceActions.getTotalBalenceFail, (state, action) => ({ ...state, loadding: true, error: action.error })),
-    on(TotaBalanceActions.updateBalance, (state, action) => ({ ...state, totalBalance: Number(state.totalBalance) + Number(action.current) }))
+    on(TotaBalanceActions.updateBalance, (state, action) => ({ ...state, totalBalance: (Number(state.totalBalance) - Number(action.prev)) + Number(action.current) })),
+    on(TotaBalanceActions.deleteBalance, (state, action) => ({ ...state, totalBalance: (Number(state.totalBalance) - Number(action.bankBalance)) }))
 );

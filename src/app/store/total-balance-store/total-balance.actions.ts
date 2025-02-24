@@ -5,3 +5,4 @@ export const getTotalBalenceSuccess = createAction('[Total Balance] Get Total Ba
 export const getTotalBalenceFail = createAction('[Total Balance] Get Total Balance fail', props<{ error: string }>());
 export const updateBalance = createAction('[Total Balance] Update Balance', props<{ prev: number, current: number }>());
 
+export const deleteBalance = createAction('[Total Balance] Delete Balnce', props<{ bankBalance: number }>());

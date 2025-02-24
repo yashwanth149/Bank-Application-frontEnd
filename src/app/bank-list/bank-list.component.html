@@ -24,7 +24,7 @@
           <input class="form-input w200" #key (keyup)="applyFilter(key.value)" placeholder="Global search...">
           <div [formGroup]="TotalBankBalance" class="m-t-10">
             <label for="">Total Bank Balance: </label>
-            <input class="form-input w100"  placeholder="Total Balance" formControlName="totalBankBalance">
+            <input class="form-input w100 readonly"  placeholder="Total Balance" formControlName="totalBankBalance">
             {{balance }}
             <button style="margin-left: 10px;" mat-raised-button color="warm" type="button" (click)="saveBankbalance()">Update Balalnce</button>
           </div>

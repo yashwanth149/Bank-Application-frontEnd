@@ -65,7 +65,9 @@ export class CreateBankComponent implements OnInit {
 
         this.bankService.getBankById(this.bankUpdateId).subscribe((response: any) => {
           this.isUpdateActive = true;
-
+          if (response && response?.bankBalance) {
+            this.balObj['prev'] = response?.bankBalance;
+          }
           response.lst.forEach((branchData: any, index: number) => {
             this.addBranch();
             this.onValueChange(index, branchData.branchCity);
@@ -182,10 +184,11 @@ export class CreateBankComponent implements OnInit {
 
   balObj = { prev: 0, current: 0 };
   submit() {
-    console.log(this.createForm.value);
-    this.balObj['prev'] = this.balObj['current'] = this.createForm.value.bankBalance;
+    this.balObj['current'] = this.createForm.value.bankBalance;
+    // if (this.balObj['prev'] === this.balObj['current'] && this.balObj['prev'] !== 0) {
+    //   this.balObj['prev'] = 0;
+    // }
     this.store.dispatch(TotaBalanceActions.updateBalance(this.balObj));
-
     // this.store.dispatch(new TotaBalanceActions.AddBalance(Number(this.createForm.value.bankBalance)));
     if (this.createForm.valid) {
       this.bankService.addBank(this.createForm.value)

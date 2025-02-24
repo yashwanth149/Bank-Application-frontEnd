@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { GuidedTourService, Orientation } from 'ngx-guided-tour';
 import { IdleService } from 'src/app/idle.service';
-
+import { AppStateInterface } from '../app-state.interface';
+import { userNameSelecotor } from '../store/credintials-store/credintials.selectors';
+import * as CredintialsActions from "../store/credintials-store/credintials.actions";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,14 +22,22 @@ export class MnbarComponent implements OnInit {
   ];
   filteredComponents: any[] = [];
   isGuide: any;
+  userName: string
 
   constructor(
     private route: Router,
     private guideServ: GuidedTourService,
     private idlServ: IdleService,
+    private store: Store<AppStateInterface>
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.store.select(userNameSelecotor).subscribe(data => {
+      console.log('user',data);
+      
+      this.userName = data;
+    })
+  }
   navigateToComponent(evnt: string) {
     const searchComp = evnt.trim().toLowerCase();
     this.filteredComponents = this.components.filter(component =>
@@ -52,5 +63,9 @@ export class MnbarComponent implements OnInit {
       ]
     });
 
+  }
+
+  logout() {
+    this.store.dispatch(CredintialsActions.userLogout({ isSuccess: false }));
   }
 }

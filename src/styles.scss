@@ -25,6 +25,10 @@ body {
     justify-content: space-between;
 }
 
+.jsutify-content-end {
+    justify-content: end;
+}
+
 .row-container {
     display: flex;
     flex-direction: row;
@@ -41,6 +45,7 @@ body {
 
     }
 }
+
 .mainDiv {
     display: flex;
 }
@@ -68,15 +73,19 @@ body {
 .w50 {
     width: 50px !important;
 }
+
 .w100 {
     width: 100px !important;
 }
+
 .w150 {
     width: 150px !important;
 }
+
 .w1750 {
     width: 1750px !important;
 }
+
 .w200 {
     width: 200px !important;
 }
@@ -99,3 +108,7 @@ body {
 
 
 
+.readonly {
+    background-color: beige !important;
+    pointer-events: none !important;
+}

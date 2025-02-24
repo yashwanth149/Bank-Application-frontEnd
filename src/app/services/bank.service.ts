@@ -97,4 +97,8 @@ export class BankService {
     return this.http.get<any>(`${this.apiServerUrl}/bank/get-total-balance?id=${id}`);
   }
 
+
+  public validateCredintials(userName: string, password: string): Observable<any> {
+    return this.http.get<any>(`${this.apiServerUrl}/bank/validate-credintials?userName=${userName}&password=${password}`);
+  }
 }

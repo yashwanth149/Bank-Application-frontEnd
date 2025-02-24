@@ -27,6 +27,9 @@ import { environment } from '../environments/environment';
 import { reducers } from './store/total-balance-store/total-balance.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { TotalBalanceEffects } from './store/total-balance-store/total-balance.effects';
+import {CredintialsEffects} from "./store/credintials-store/credintials.effects";
+import { credindialsReduces } from './store/credintials-store/credintials.reducers';
+
 
 
 
@@ -55,9 +58,9 @@ import { TotalBalanceEffects } from './store/total-balance-store/total-balance.e
     GuidedTourModule,
     PDFExportModule,
     ScrollingModule,
-    StoreModule.forRoot({'balance': reducers}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([TotalBalanceEffects]),
+    StoreModule.forRoot({'balance': reducers,'crediantials':credindialsReduces}),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production}),
+    EffectsModule.forRoot([TotalBalanceEffects,CredintialsEffects]),
   ],
 
   providers: [

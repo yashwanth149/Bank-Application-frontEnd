@@ -4,7 +4,9 @@ import { BankService } from '../services/bank.service';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { IdleService } from '../idle.service';
-import { BehaviorSubject } from 'rxjs';
+import {  Store } from '@ngrx/store';
+import { AppStateInterface } from '../app-state.interface';
+import * as CredintialsActions from "../store/credintials-store/credintials.actions";
 
 @Component({
   selector: 'app-login-page',
@@ -19,7 +21,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private bankserv: BankService,
     private route: Router,
-    private idleServ: IdleService
+    private idleServ: IdleService,
+    private store: Store<AppStateInterface>,
   ) { }
 
 
@@ -33,24 +36,25 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   loginForm = this.fb.group({
     userId: ['', [Validators.required]],
     password: ['', [Validators.required]],
-    email:[''],
-    pass:[''],
+    email: [''],
+    pass: [''],
   })
 
   login(formData: any) {
-    const { userId, password } = formData.value;
-    this.usersLst.forEach(user => {
-      if (userId === user.uName && password === user.pass) {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.idleServ.isLoggedIn.next(true);
-        this.route.navigate(['/dash']);
-        localStorage.setItem('USERNAME', user.uName);
-        if (localStorage.getItem('USERNAME')) {
-          this.idleServ.startWatching();
+    this.store.dispatch(CredintialsActions.validateCred({ username: formData?.value?.userId, password: formData?.value?.password }))
 
-        }
-      }
-    });
+    // const { userId, password } = formData.value;
+    // this.usersLst.forEach(user => {
+    //   if (userId === user.uName && password === user.pass) {
+    //     localStorage.setItem('user', JSON.stringify(user));
+    //     this.idleServ.isLoggedIn.next(true);
+    //     this.route.navigate(['/dash']);
+    //     localStorage.setItem('USERNAME', user.uName);
+    //     if (localStorage.getItem('USERNAME')) {
+    //       this.idleServ.startWatching();
+    //     }
+    //   }
+    // });
   }
 
   get uId() {

@@ -59,19 +59,7 @@ export class BankListComponent implements OnInit {
       }
     })
     this.store.pipe(select(totalBalanceSelector)).subscribe(val => this.balance = val);
-
-    // this.totalBalance$.subscribe(val => console.log('total', val));
     this.setTotalBalanceFormData();
-    // this.bankService.getTotalBankBalane(1).subscribe(resp => {
-    //   this.TotalBankBalance.patchValue(resp);
-    // })
-    // this.store.select('balance').subscribe((val: any) => console.log('balance', val));
-
-    // this.store.dispatch(new TotaBalanceActions.AddBalance(Number(this.TotalBankBalance.value.totalBankBalance)));
-    // this.store.select('balance').subscribe((val: any) => {
-    //   this.balance = val; console.log('balance', val);
-    // });
-
     this.getBanks();
   }
 
@@ -111,6 +99,7 @@ export class BankListComponent implements OnInit {
 
   delete(id: number) {
     const balance = this.banks.find((item: any) => item.bid == id);
+    this.store.dispatch(TotaBalanceActions.deleteBalance({ bankBalance: balance.bankBalance }))
     this.bankService.deleteBank(id).subscribe(response => {
       this.getBanks();
     });
