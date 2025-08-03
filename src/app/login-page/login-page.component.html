@@ -17,17 +17,16 @@
 
             <button mat-raised-button color="accent" [disabled]="loginForm.invalid"
                 data-cy="login-button">login</button>
-            <p>don't have an account signUp <button (click)="onSignup()">signup</button> </p>
+            <!-- <p>don't have an account signUp <button (click)="onSignup()">signup</button> </p> -->
         </ng-container>
 
-        <ng-container class="row2" *ngIf="isSignUp">
+        <!-- <ng-container class="row2" *ngIf="isSignUp">
             <input matInput type="text" placeholder="userName" formControlName="userId">
             <input matInput type="text" placeholder="abc@gmail.com" formControlName="email">
             <input matInput type="password" placeholder="password" formControlName="pass">
             <button mat-raised-button color="accent" [disabled]="loginForm.invalid">SignUp</button>
-        </ng-container>
+        </ng-container> -->
     </form>
-
 
 
 </div>
