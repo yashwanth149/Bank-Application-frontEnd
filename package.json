@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dev": "ng serve --port=5000"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +22,9 @@
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
+    "@ngrx/effects": "^14.3.3",
+    "@ngrx/store": "^14.3.3",
+    "@ngrx/store-devtools": "^14.3.3",
     "@progress/kendo-angular-common": "^3.0.0",
     "@progress/kendo-angular-pdf-export": "^4.0.0",
     "@progress/kendo-drawing": "^1.2.0",
@@ -28,6 +32,7 @@
     "@progress/kendo-theme-default": "^5.0.0",
     "bootstrap": "^5.3.3",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.3",
     "jspdf": "^2.5.2",
     "ng-multiselect-dropdown": "^0.3.9",
     "ngx-bootstrap": "^10.3.0",

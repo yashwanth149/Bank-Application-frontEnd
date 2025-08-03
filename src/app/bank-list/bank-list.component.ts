@@ -171,14 +171,22 @@ export class BankListComponent implements OnInit {
    */
   Common = this.fb.group({
     Params: this.fb.group({
-      personName: [''],
+      email: [''],
       // personId: [''],
     }),
-    lable: 'personName',
-    value: 'personName',
+    lable: 'email',
+    value: 'email',
     key: [''],
     start: [0],
     count: [10],
-    className: ['DataPersonSearch'],
+    viewName: ['UsersSearch'],
+    filters: this.fb.array([
+      {
+        "column": "uName",
+        "operator": "LIKE",
+        "value": "U%100%"
+      }
+    ])
   })
+
 }

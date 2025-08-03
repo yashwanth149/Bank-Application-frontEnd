@@ -89,18 +89,11 @@
     <div class="inputSearch">
         <input type="text" matInput placeholder="Search" required [matAutocomplete]="autoGroup" #val
             (input)="debounceSearch(val.value)" formControlName="key">
-        <mat-autocomplete #autoGroup="matAutocomplete">
+        <!-- <mat-autocomplete #autoGroup="matAutocomplete">
             <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" itemSize="30" style="min-height: 320px;"
                 minBufferPx="100" maxBufferPx="200">
 
-                <!-- <div *cdkVirtualFor="let group of cdkLst">
-                    <mat-optgroup 
-                        [label]="Common?.get('lable')?.value!=Common?.get('value')?.value ? group[Common?.get('lable')?.value] :'' ">
-                        <mat-option [value]="Common?.get('lable')?.value!=Common?.get('value')?.value ? group[Common?.get('lable')?.value] :group[Common?.get('value')?.value]">
-                            {{ group[Common?.get('value')?.value] }}
-                        </mat-option>
-                    </mat-optgroup>
-                </div> -->
+                
                 <div *cdkVirtualFor="let group of cdkLst">
                     <mat-optgroup
                         [label]="Common?.get('lable')?.value==Common?.get('value')?.value ?  '' :group[Common?.get('lable')?.value]">
@@ -116,9 +109,27 @@
                     {{ 'No Data Found' }}
                 </mat-optgroup>
             </cdk-virtual-scroll-viewport>
+        </mat-autocomplete> -->
+        <mat-autocomplete #autoGroup="matAutocomplete">
+            <cdk-virtual-scroll-viewport class="autocomplete-test-viewport cdk-virtual-scrl" itemSize="30"
+                style="min-height: 250px;" minBufferPx="100" maxBufferPx="200">
+                <div *cdkVirtualFor="let group of cdkLst">
+                    <mat-optgroup [label]="group[Common?.get('lable')?.value]">
+                        <mat-option [value]="group[Common?.get('value')?.value]"
+                            (onSelectionChange)="selectedOption($event.source.value, group)">
+                            {{ group[Common?.get('display')?.value] }}
+                        </mat-option>
+                    </mat-optgroup>
+                </div>
+                <mat-optgroup *ngIf="cdkLst.length == 0" class="test" style="visibility: visible;">
+                    No Data Found
+                </mat-optgroup>
+            </cdk-virtual-scroll-viewport>
         </mat-autocomplete>
     </div>
 </form>
+
+
 
 <!-- </div>
 </div> -->
